@@ -76,7 +76,7 @@
 		
       <form id="f_login" class="form-signin" method="POST">
         <label for="inputEmail" class="sr-only">Your ID</label>
-        <input type="text" id="uid" name="mem_email" class="form-control" placeholder="ID" required autofocus style="border-radius : 10px;"><BR>
+        <input type="text" id="uid" name="mem_id" class="form-control" placeholder="ID" required autofocus style="border-radius : 10px;"><BR>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="upw" name="mem_pw"  class="form-control" placeholder="Password" required style="border-radius : 10px;"><br>
         <div class="btn float-right">

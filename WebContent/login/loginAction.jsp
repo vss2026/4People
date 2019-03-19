@@ -8,7 +8,7 @@
 	for(Map<String,Object> rMap:loginList) {
 	for(String key:rMap.keySet()) {
 		session.setAttribute(key, rMap.get(key));
-		if(key.equals("MEM_EMAIL")){
+		if(key.equals("MEM_ID")){
 			id = (String)rMap.get(key);
 		}
 		else if(key.equals("MEM_NAME"));

@@ -22,7 +22,7 @@
 	
 	
 	<script>
-		location.href="../intro/main.jsp";
+		location.href="../board/board.for?crud=sel&mem_id="id;
 	</script>
 	<%
 	} else if(loginList.size()==0||loginList==null){%>

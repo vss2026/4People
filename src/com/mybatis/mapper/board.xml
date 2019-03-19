@@ -7,8 +7,10 @@
 		)}
 	
 	</insert>
-	<select id="BoardSel" resultType="java.util.Map">
-		select board_no,board_title, board_color,board_update from board
+	<select id="BoardSel" resultType="java.util.Map" statementType="CALLABLE">
+		{call Board_Ins(#{mem_id, mode=IN, jdbcType=VARHCHAR, javaType=java.lang.String}
+		               ,#{r_cursor, mode=OUT, jdbcType=CURSOR, javaType=java.lang.String}
+		)}
 	</select>
 	<update id="BoardUpd" parameterType="java.util.Map">
 	 update board

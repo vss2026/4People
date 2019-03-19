@@ -67,7 +67,6 @@
 	</script>
 </head>
 <body>
-
 	<table class="table">
 	<tr>
 	<div class=" row col-md-offset-1"style="margin-top:100px;" id="updateboard">
@@ -85,7 +84,7 @@
 	<tr>&nbsp;</tr>
 	<tr>
 	<div class=" row col-md-offset-1"style="margin-updateboard:700px;" id="myboard">
-	<h3 style="color:#5bc0de"> <span class="label"><img src="../images/my.png"></span><%=name %> </h3>
+	<h3 style="color:#5bc0de"> <span class="label"><img src="../images/my.png"></span>지유니 </h3>
 	<div class="col-sm-2 text-center" id="board">
 	<input type="button" style="WIDTH: 150pt; HEIGHT: 100pt" class="btn btn-default " data-target="#layerpop" data-toggle="modal" value="새 보드 생성하기..."></button>
 	</div>
@@ -107,56 +106,31 @@
 	</tr>
 </table>
  <!--  모달영역 -->
-<!-- <div class="modal fade" id="layerpop" > -->
-<!--   <div class="modal-dialog"> -->
-<!--     <div class="modal-content"> -->
-<!--       header -->
-<!--       <div class="modal-header"> -->
-<!--         닫기(x) 버튼 -->
-<!--         <button type="button" class="close" data-dismiss="modal">×</button> -->
-<!--         header title -->
-<!--         <h4 class="modal-title">보드명</h4> -->
-<!--       </div> -->
-<!--       body -->
-<!--       <div class="modal-body"> -->
-<!--             <input type=text id="op" name="boardtitle"> -->
-           
-<!--       </div> -->
-<!--       Footer -->
-<!--       <div class="modal-footer" id="create"> -->
-<!-- 		 <input type="button" style="float:left" class="btn btn-default" onClick="defaultt()"/> -->
-<!--             <input type="button" style="float:left" class="btn btn-primary" onClick="primary()"/> -->
-<!--             <input type="button" style="float:left" class="btn btn-success" onClick="success()"/> -->
-<!--             <input type="button" style="float:left" class="btn btn-info" onClick="info()"/> -->
-<!--             <input type="button" style="float:left" class="btn btn-warning" onClick="warning()"/> -->
-<!--             <input type="button" style="float:left" class="btn btn-danger" onClick="danger()"/> -->
-<!--         <button type="button" class="btn btn-default" data-dismiss="modal" onClick="addInput()">생성</button> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
- <!--  모달영역 -->
- <!-- The Modal -->
-<div class="modal" id="layerpop">
+<div class="modal fade" id="layerpop" >
   <div class="modal-dialog">
     <div class="modal-content">
-
-      <!-- Modal Header -->
+      <!-- header -->
       <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- 닫기(x) 버튼 -->
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <!-- header title -->
+        <h4 class="modal-title">보드명</h4>
       </div>
-
-      <!-- Modal body -->
+      <!-- body -->
       <div class="modal-body">
-        Modal body..
+            <input type=text id="op" name="boardtitle">
+           
       </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      <!-- Footer -->
+      <div class="modal-footer" id="create">
+		 <input type="button" style="float:left" class="btn btn-default" onClick="defaultt()"/>
+            <input type="button" style="float:left" class="btn btn-primary" onClick="primary()"/>
+            <input type="button" style="float:left" class="btn btn-success" onClick="success()"/>
+            <input type="button" style="float:left" class="btn btn-info" onClick="info()"/>
+            <input type="button" style="float:left" class="btn btn-warning" onClick="warning()"/>
+            <input type="button" style="float:left" class="btn btn-danger" onClick="danger()"/>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onClick="addInput()">생성</button>
       </div>
-
     </div>
   </div>
 </div>
@@ -198,6 +172,8 @@
 		  }
 	  }
  </script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+   <script src="../js/bootstrap.min.js"></script>
 
 </body>
 </html>

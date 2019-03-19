@@ -27,7 +27,7 @@ public class Servlet_people extends HttpServlet {
 			controller = ControllerMapper.getController(command);
 			String ret =controller.execute(req, res);
 			pageMove = ret.split(":");
-			logger.info("pageMove:"+pageMove);
+			logger.info("pageMove:"+pageMove.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

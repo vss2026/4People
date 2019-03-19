@@ -18,7 +18,9 @@ public class BoardController implements Controller {
 	String crud =null;
 	Logger logger =  Logger.getLogger(BoardController.class);
 	
-	//나도추가
+  //나도추가
+  //test
+  
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String path=null;

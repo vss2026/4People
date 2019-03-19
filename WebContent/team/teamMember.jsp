@@ -5,7 +5,7 @@
 String pm1=(String)request.getAttribute("pm");
 List<Map<String,Object>> memberList =(List<Map<String,Object>>)request.getAttribute("team");
 String mem_name=null;
-String mem_email=null;
+String mem_id=null;
 String p_role = null;
 String pm = null;
 
@@ -203,17 +203,17 @@ String pm = null;
     <% 
 	if(memberList!=null&&memberList.size()>0){
 		for(Map<String,Object> rMap:memberList){
-				 mem_name =(String)rMap.get("MEM_NAME");
-				 mem_email=(String)rMap.get("MEM_EMAIL");
-				 p_role = (String)rMap.get("PJ_MEM_ROLE");
-				 pm = String.valueOf(rMap.get("P_M"));
+			 mem_name =(String)rMap.get("MEM_NAME");
+			 mem_id=(String)rMap.get("MEM_ID");
+			 p_role = (String)rMap.get("TM_ROLE");
+			 pm = String.valueOf(rMap.get("P_M"));
 %>
 	
 	
 	
 	  <tr>
       <th scope="row"><%=mem_name %></th>
-      <td><%=mem_email %></td>
+      <td><%=mem_id %></td>
       <td><%=p_role %></td>
       <%if(pm.equals("1")){%>
        

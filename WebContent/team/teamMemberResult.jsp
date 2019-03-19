@@ -17,8 +17,8 @@ List<Map<String,Object>> teamList =(List<Map<String,Object>>)request.getAttribut
 
 		for(Map<String,Object> rMap:teamList){
 			String mem_name =(String)rMap.get("MEM_NAME");
-			String mem_email=(String)rMap.get("MEM_EMAIL");
-			String p_role = (String)rMap.get("PJ_MEM_ROLE");
+			String mem_id=(String)rMap.get("MEM_ID");
+			String p_role = (String)rMap.get("TM_ROLE");
 			String pm = String.valueOf(rMap.get("P_M"));
 	
 %>
@@ -26,7 +26,7 @@ List<Map<String,Object>> teamList =(List<Map<String,Object>>)request.getAttribut
 <!--테이블 값 넣어주기  -->
 	  <tr>
       <th scope="row"><%=mem_name %></th>
-      <td><%=mem_email %></td>
+      <td><%=mem_id %></td>
       <td><%=p_role %></td>
 <!-- 권한 확인 -->      
       <%if(pm.equals("1")){%>

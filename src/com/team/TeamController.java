@@ -79,7 +79,7 @@ public class TeamController implements Controller {
 			else if("invite".equals(command)) {
 				
 				
-				pMap.put("p_code",1);
+				pMap.put("p_code",String.valueOf(1));
 				for(String key:pMap.keySet()) {
 					logger.info(key+" pMap:"+pMap.get(key));
 				}

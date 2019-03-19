@@ -5,19 +5,19 @@
 Map<String,Object> rMap =(Map<String,Object>)request.getAttribute("inviteList");
 int result = 0;
 String mem_name="";
-String mem_email="";
-String mem_lank="";
+String mem_id="";
+String mem_role="";
 String mem_dept="";
 	if(rMap.size()>0&&rMap!=null){
 		 mem_name =(String)rMap.get("r_mem_name");
-		 mem_email=(String)rMap.get("r_mem_email");
-		 mem_lank = (String)rMap.get("r_mem_lank");
+		 mem_id=(String)rMap.get("r_mem_email");
+		 mem_role = (String)rMap.get("r_mem_lank");
 		 mem_dept= String.valueOf(rMap.get("r_mem_dept"));
 	}
 		
 %>	
 <!-- DB에서 받아온값이 null이 아닌경우 -->
-<%if(mem_email!=null&&mem_name!=null){%>	
+<%if(mem_id!=null&&mem_name!=null){%>	
 <table class="table" id="t_invite">
 <thead>
     <tr>
@@ -34,8 +34,8 @@ String mem_dept="";
 		<!--테이블 값 넣어주기  -->
 	  <tr>
       <td scope="row" align='left'><%=mem_name %></td>
-      <td align='left'><%=mem_email%></td>
-      <td align='left'><%=mem_lank%></td>
+      <td align='left'><%=mem_id%></td>
+      <td align='left'><%=mem_role%></td>
       <td align='left'><%=mem_dept%></td>
       <td align='right'><button id="btn_invite" class="btn btn-success">초대</button></td>
      </tr>

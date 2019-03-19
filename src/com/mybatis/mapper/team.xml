@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.team">
+	<select id="boardList" parameterType="map" resultType="map">
+		select b_title from t_board
+		<where>
+			<if test="mem_id!=null">
+				AND mem_id = #{mem_id}
+			</if>
+			<if test="p_code!=null">
+				AND p_code = #{p_code}
+			</if>
+		</where>
+	</select>
+	<select id="getMember" parameterType="map" resultType="map">
+          select member.mem_name,member.mem_email,project_member.pj_mem_ROLE
+       ,case when (select min(pj_mem_time) from project_member)=project_member.pj_mem_time then 1 else 0 end p_m
+          from member,project_member
+	<where>
+			AND  MEMBER.MEM_EMAIL=project_member.MEM_EMAIL
+		<if test="p_code!=null">
+		    AND project_member.pj_code =#{p_code}
+		</if>
+		<if test="mem_name!=null and mem_name.length()>0">
+		  AND member.mem_name #{mem_name}||'%'
+		</if>
+	</where>
+	</select>
+	
+	<select id="getInvite" parameterType="map" statementType="CALLABLE">
+		{call proc_inviteMember(#{mem_email,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		                ,#{p_code}
+		                ,#{r_mem_name,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                ,#{r_mem_email,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                ,#{r_mem_dept,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String}
+		                ,#{r_mem_lank,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+	</select>
+	<insert id="inviteMember" parameterType="map" statementType="CALLABLE">
+		 {call proc_porjectMember(#{p_code}
+		 						 ,#{p_role,mode=IN,jdbcType=VARCHAR, javaType=java.lang.String}
+		 						 ,#{inviteMember,mode=IN,jdbcType=VARCHAR,javaType=java.lang.String})}    
+		      
+	</insert>
+
+<!-- 	<select id="pm" parameterType="map" resultType="map"> -->
+<!-- 		select p_m from t_member -->
+<!-- 		<where> -->
+<!-- 			<if test="mem_email!null"> -->
+<!-- 				AND mem_email=#{mem_email} -->
+<!-- 			</if> -->
+<!-- 		</where> -->
+<!-- 	</select> -->
+</mapper>

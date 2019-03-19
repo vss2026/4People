@@ -18,8 +18,8 @@
 */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-.es_bg-dark {
-    background-color: #343a40 !important;
+.es_info-color {
+    background-color: rgb(51, 181, 229) !important;
 }
 body {
     font-family: 'Poppins', sans-serif;
@@ -93,9 +93,9 @@ a, a:hover, a:focus {
     /* top right corner of the sidebar */
     top: 10px;
     right: 10px;
-    background:#6D7FCC;
+    background:#5B718C;
     border:0;
-    border-color:#6D7FCC;
+    border-color:#5B718C;
 }
 #sidebar {
     min-width: 250px;
@@ -106,7 +106,7 @@ a, a:hover, a:focus {
     left: -250px;
     /* top layer */
     z-index: 9999;
-    background: #7386D5;
+    background: #5B718C;
     color: #fff;
     transition: all 0.3s;
 }
@@ -116,7 +116,7 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
+    background: #5B718C;
 }
 
 #sidebar ul.components {
@@ -142,22 +142,22 @@ a, a:hover, a:focus {
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #376092;
 }
 
 
-a[data-toggle="collapse"] {
-    position: relative;
-}
+/* a[data-toggle="collapse"] { */
+/*     position: relative; */
+/* } */
 
-a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
-    content: '\e259';
-    display: block;
-    position: absolute;
-    right: 20px;
-    font-family: 'Glyphicons Halflings';
-    font-size: 0.6em;
-}
+/* a[aria-expanded="false"]::before, a[aria-expanded="true"]::before { */
+/*     content: '\e259'; */
+/*     display: block; */
+/*     position: absolute; */
+/*     right: 20px; */
+/*     font-family: 'Glyphicons Halflings'; */
+/*     font-size: 0.6em; */
+/* } */
 a[aria-expanded="true"]::before {
     content: '\e260';
 }
@@ -210,6 +210,26 @@ a.article, a.article:hover {
 #content.active {
     width: 100%;
 }
+.es_dropdown-container {
+  display: none;
+  padding-left: 8px;
+}
+.es_dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+.es_active {
+  background-color:#376092;
+  color: white;
+}
 </style>
 </head>
 <body>
@@ -227,31 +247,26 @@ a.article, a.article:hover {
         </div>
         <ul class="list-unstyled components">
             <li>
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">개인프로젝트</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">개인프로젝트 1</a>
-                    </li>
-                    <li>
-                        <a href="#">개인프로젝트 2</a>
-                    </li>
-                </ul>
+            <button class="es_dropdown-btn">개인프로젝트 
+   			 <i class="fa fa-caret-down"></i>
+  			</button>
+  			<div class="es_dropdown-container">
+    			<a href="#">Link 1</a>
+    			<a href="#">Link 2</a>
+    			<a href="#">Link 3</a>
+  			</div>
             </li>
             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">참여중인팀</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
-                <a href="#">캘린더</a>
+            <button class="es_dropdown-btn">참여중인팀 
+   			 <i class="fa fa-caret-down"></i>
+  			</button>
+  			<div class="es_dropdown-container">
+    			<a href="#">Link 1</a>
+    			<a href="#">Link 2</a>
+    			<a href="#">Link 3</a>
+  			</div>
             </li>
+            
             <li>
                 <a href="#">회의실</a>
             </li>
@@ -263,15 +278,17 @@ a.article, a.article:hover {
             </li>
         </ul>
     </nav>
-    <!-- Sidebar -->
-<nav class="navbar navbar-default navbar-fixed-top es_bg-dark">
+    <!-- /Sidebar -->
+    
+    <!-- 상단 -->
+<nav class="navbar navbar-default navbar-fixed-top es_info-color">
   <div class="container-fluid">
     
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar-collapse collapse">
       <!-- 왼쪽 -->
       <ul class="nav navbar-nav navbar-left">
-        <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px;">
+        <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px; background:rgb(51, 181, 229);">
         	<i class="fas fa-bars"></i>
         </button>
       
@@ -284,18 +301,25 @@ a.article, a.article:hover {
       <!-- 오른쪽 -->
       <ul class="nav navbar-nav navbar-right">
       <li style="font-size:1.5em;  color: white; margin-top:15px"><%=name %></li>
-      <li class="dropdown"   style="webkit-appearance:none;">
-          <button class="btn btn-default" type="button" id="menu1" data-toggle="dropdown" style=" border:0; height:50px; background-color: #343a40; margin-bottom:5px; margin-left:10px;">
-     <img src="http://icons.iconarchive.com/icons/papirus-team/papirus-status/48/avatar-default-icon.png" />
-<!--        <span class="caret"></span> -->
-    </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">프로필</a></li>
-            <li><a href="#">설정</a></li>
-            <li class="divider"></li>
-            <li><a href="#">로그아웃</a></li>
-          </ul>
-        </li>
+      
+      <!--  -->
+      
+      <li class="dropdown" style='height:55px;margin-bottom:5px;'>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="http://icons.iconarchive.com/icons/papirus-team/papirus-status/48/avatar-default-icon.png"  alt="Cinque Terre" width="35" height="35" >
+              <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              
+                <li ><a href="#">프로필</a></li>
+                <li><a href="#">쪽지함</a></li>
+                <li><a href="#">설정</a></li>
+                <li class="divider"></li>
+                <li><a href="#">로그아웃</a></li>
+              </ul>
+       </li>       
+      <!--  -->
+     
+      
         </ul>
       <form class="navbar-form navbar-right" role="search">
       
@@ -318,6 +342,7 @@ a.article, a.article:hover {
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<!-- /상단 -->
 <div class="es_overlay"></div>
 <script type="text/javascript">
 function dismiss(){
@@ -345,6 +370,26 @@ function dismiss(){
 //             $('a[aria-expanded=false]').attr('aria-expanded', 'true');
         });
     });
+    var dropdown = document.getElementsByClassName("es_dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("es_active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+    
+    $('ul.nav li.dropdown').hover(function() {
+    	  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+    	}, function() {
+    	  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+    	});
 </script>
 </div>
 </body>

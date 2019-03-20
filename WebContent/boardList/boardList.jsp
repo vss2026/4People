@@ -108,7 +108,7 @@
 </script>
 </head>
 <body style="#BDBDBD;">
-	<div id="haha" class="panel panel-primary" style="margin-top:35px; ">
+	<div id="haha" class="panel panel-primary"  ">
     <div class="panel-heading">
         <h3 class="panel-title"><img src="../images/team.png"> 자바팀</h3>
     </div>

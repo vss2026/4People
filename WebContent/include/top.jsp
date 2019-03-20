@@ -17,7 +17,6 @@
     DEMO STYLE
 */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
 .es_info-color {
     background-color: rgb(51, 181, 229) !important;
 }
@@ -25,7 +24,6 @@ body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
 }
-
 p {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
@@ -33,13 +31,11 @@ p {
     line-height: 1.7em;
     color: #999;
 }
-
 a, a:hover, a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
 }
-
 /* .navbar { */
 /*     padding: 15px 10px; */
 /*     background: #fff; */
@@ -48,26 +44,23 @@ a, a:hover, a:focus {
 /*     margin-bottom: 40px; */
 /*     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); */
 /* } */
-
 /* .navbar-btn { */
 /*     box-shadow: none; */
 /*     outline: none !important; */
 /*     border: none; */
 /* } */
-
 .es_line {
     width: 100%;
     height: 1px;
     border-bottom: 1px dashed #ddd;
     margin: 40px 0;
 }
-
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
 .es_wrapper {
     display: block;
-    margin-bottom:80px;
+    margin-bottom:60px;
 }
 .es_overlay {
     display: none;
@@ -84,8 +77,6 @@ a, a:hover, a:focus {
     transition: all 0.5s ease-in-out;
 }
 /* display .overlay when it has the .active class */
-
-
 #dismiss {
     width: 35px;
     height: 35px;
@@ -113,23 +104,19 @@ a, a:hover, a:focus {
 #sidebar.active { 
     margin-left: 250px; 
 } 
-
 #sidebar .sidebar-header {
     padding: 20px;
     background: #5B718C;
 }
-
 #sidebar ul.components {
     padding: 20px 0;
     border-bottom: 1px solid #47748b;
     
 }
-
 #sidebar ul p {
     color: #fff;
     padding: 10px;
 }
-
 #sidebar ul li a {
     padding: 10px;
     font-size: 1.1em;
@@ -139,17 +126,13 @@ a, a:hover, a:focus {
     color: #7386D5;
     background: #fff;
 }
-
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
     background: #376092;
 }
-
-
 /* a[data-toggle="collapse"] { */
 /*     position: relative; */
 /* } */
-
 /* a[aria-expanded="false"]::before, a[aria-expanded="true"]::before { */
 /*     content: '\e259'; */
 /*     display: block; */
@@ -161,18 +144,14 @@ a, a:hover, a:focus {
 a[aria-expanded="true"]::before {
     content: '\e260';
 }
-
-
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
 }
-
 ul.CTAs {
     padding: 20px;
 }
-
 ul.CTAs a {
     text-align: center;
     font-size: 0.9em !important;
@@ -193,8 +172,6 @@ a.article, a.article:hover {
     left: 50%;
     transform: translatex(-50%);
 }
-
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -281,7 +258,7 @@ a.article, a.article:hover {
     <!-- /Sidebar -->
     
     <!-- 상단 -->
-<nav class="navbar navbar-default navbar-fixed-top es_info-color">
+<nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(51, 181, 229);" >
   <div class="container-fluid">
     
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -353,14 +330,12 @@ function dismiss(){
 }
     $(document).ready(function () {
         
-
         $('#dismiss, .es_overlay').on('click', function () {
             // hide sidebar
             $('#sidebar').removeClass("active");
             // hide overlay
         });
         
-
         $('#sidebarToggle').on('click', function () {
             // open sidebar
             $('#sidebar').addClass("active");
@@ -372,7 +347,6 @@ function dismiss(){
     });
     var dropdown = document.getElementsByClassName("es_dropdown-btn");
     var i;
-
     for (i = 0; i < dropdown.length; i++) {
       dropdown[i].addEventListener("click", function() {
         this.classList.toggle("es_active");

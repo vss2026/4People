@@ -2,9 +2,9 @@ package com.board;
 
 import java.io.Reader;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -45,17 +45,32 @@ public class BoardDao {
 			sqlMap = new SqlSessionFactoryBuilder().build(reader);
 			session = sqlMap.openSession();
 			boardVO BoardVO = new boardVO();
-				BoardVO.setMem_id(pMap.get("mem_id").toString());
-				logger.info(BoardVO.getMem_id());
+//				BoardVO.setMem_id(pMap.get("mem_id").toString());
+//				logger.info(BoardVO.getMem_id());
 //			session.sele
-			List<boardVO> test = session.selectList("BoardSel",BoardVO);
+//			List<boardVO> test = session.selectList("BoardSel",pMap);
 //			session.select
-			logger.info(test);
-			logger.info(test.size());
+//			logger.info(test);
+//			logger.info(test.size());
 //			Map<String,Object> hMap = new HashMap<String,Object>();
 //			hMap.put("BoardSel", session.selectList("BoardSel",pMap));
 //			hMap.put("TeamSel", session.selectList("TeamSel",pMap));
-//			BoardList= session.selectList("BoardSel",pMap);
+//			BoardList= 
+					session.selectList("BoardSel", pMap);
+//					("BoardSel",pMap);
+					logger.info(BoardVO.getBoard_title());
+					logger.info(pMap.get("teamMap"));
+					logger.info(pMap.get("boardMap"));
+//					Iterator<String> keys =((HashMap)pMap.get("teamMap")).keySet().iterator();
+//					while(keys.hasNext()) {
+//						String key = keys.next();
+//						logger.info("key :"+key+ "value : "+ ((HashMap)pMap.get("teamMap")).get(0));
+//					}
+//			logger.info("mem_id=: "+pMap.get("mem_id").);
+			
+//			logger.info(((Map<String,Object>)pMap.get("boardMap")).get("team_code"));
+			
+//			logger.info(BoardList.size());
 //			BoardList.add(hMap);
 //			logger.info(BoardList);
 //			for(int i=0;i<pMap.size();i++) {

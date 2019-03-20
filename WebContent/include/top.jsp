@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
  <%
  String name = (String)session.getAttribute("MEM_NAME"); 
- String dept = (String)session.getAttribute("DEPT_NAME");
+ String dept = (String)session.getAttribute("MEM_COMPANYNAME");
  String position = (String)session.getAttribute("MEM_POSITION");
 %>   
 <!DOCTYPE html>

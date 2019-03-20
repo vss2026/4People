@@ -19,8 +19,8 @@
 //             		$("#f_signUp").attr("action","./index.jsp");
 //             		$("#f_signUp").submit();
 //             		 $("#f_signUp").attr("method","POST");
-					alert("회원가입성공");
-             		$("#f_signUp").attr("action","./login.for?command=signUp");
+					var mem_id2=$("#dropdownMenu1").text();
+             		$("#f_signUp").attr("action","./login.for?command=signUp&mem_id2="+mem_id2);
              		$("#f_signUp").submit();
         		}
         		else{
@@ -64,11 +64,12 @@
     <body >
     
         <article class="container" >
-            <div class="page-header" align="center">
+            <div class="page-header" align="center" style='font-color:#2489EE;'>
                 <div class="col-md-6 col-md-offset-3">
                 <h3>회원가입</h3>
                 </div>
             </div>
+            
         <div class="row align-items-center justify-content-center" style="height:100vh;"> 
             <div class="col-sm-6 col-md-offset-3" >
                 <form id="f_signUp" role="form" method="POST">
@@ -76,10 +77,26 @@
                         <label for="inputName">성명</label>
                         <input type="text" class="form-control" id="inputName" name="mem_name" placeholder="이름을 입력해 주세요">
                     </div>
+                    
+                    <div class="form-inline">
                     <div class="form-group">
-                        <label for="InputEmail">이메일 주소</label>
-                        <input type="email" class="form-control" id="InputEmail" name="mem_id" placeholder="이메일 주소를 입력해주세요">
+                        <label for="InputEmail">이메일 주소(ID)</label><br>
+                        <input type="email" style='width:250px;' class="form-control" id="InputEmail" name="mem_id1" placeholder="이메일 주소를 입력해주세요">&nbsp;@&nbsp;
+                    	<!--  -->
+                    	
+            <button class="btn btn-default dropdown-toggle form-control" style='wdith:250px;'   type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              	이메일주소(필수사항)	
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu"  aria-labelledby="dropdownMenu1" id="mydd" >
+              <li><a href="#"><span style='font-size:16px;'>naver.com</span></a></li>
+              <li><a href="#"><span style='font-size:16px;'>gmail.com</span></a></li>
+              <li><a href="#"><span style='font-size:16px;'>daum.net</span></a></li>
+              <li><a href="#"><span style='font-size:16px;'>yahoo.co.kr</span></a></li>
+            </ul>
+                    	<!--  -->
                     </div>
+                    </div><br>
                     <div class="form-group">
                         <label for="inputPassword">비밀번호</label>
                         <input type="password" class="form-control" id="inputPassword" name="mem_pw" onchange="check()" placeholder="비밀번호를 입력해주세요">
@@ -90,19 +107,42 @@
                         <input type="password" class="form-control" id="inputPasswordCheck" onchange="check()" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요">
                     	&nbsp;&nbsp;<span id="same"></span>
                     </div>
-
+                    
+                    <!-- HP -->
+                    <div class="form-inline">
                     <div class="form-group">
-                        <label for="inputMobile">휴대폰 번호</label>
-                        <input type="tel" class="form-control" id="inputMobile" name="mem_hp" placeholder="휴대폰번호를 입력해 주세요">
+                        <label>휴대폰 번호</label><br>
+                        <input type="tel" class="form-control" style='width:150px;' id="inputMobile2" name="mem_hp1" >&nbsp;―&nbsp;
+                        <input type="tel" class="form-control" style='width:150px;' id="inputMobile3" name="mem_hp2" >&nbsp;―&nbsp;
+                        <input type="tel" class="form-control" style='width:150px;' id="inputMobile1" name="mem_hp3" >&nbsp;
                     </div>
+                    </div><br>
+                    <!-- HP -->
+                    <div class='form-group'>
+                    <label for="company">회사명</label><br>
+                    <input type="text" class="form-control" id='company' name='mem_companyname' placeholder='선택사항'>
+                    </div>
+                    <div class='form-group'>
+                    <label for="position">직급</label><br>
+                    <input type="text" class="form-control" id='position' name='mem_position' placeholder='선택사항'>
+                    </div>
+					<div class="form-inline">
                     <div class="form-group">
-                    <label for="sample6_postcode">주소</label><br>
-                    <input type="text" id="sample6_postcode" name="mem_zipcode" placeholder="우편번호">
+                    <label for="sample6_postcode">회사주소(선택사항)</label><br>
+                    <input type="text" class="form-control" style='width:200px;'id="sample6_postcode"  placeholder="우편번호">
 			<input type="button" class="btn-info" class='border' onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br><br>
+			</div>
+			</div>
 			<input type="text" class="form-control" id="sample6_address" name="mem_addr2" placeholder="주소"><br>
-			<input type="text" class="form-control" id="sample6_detailAddress" name="mem_addr1" placeholder="상세주소">
-			<input type="text" class="form-control" id="sample6_extraAddress" name="mem_addr3" placeholder="참고항목">
-
+			<input type="text" class="form-control" id="sample6_extraAddress" name="mem_addr1" placeholder="상세주소"><br>
+			<div class="form-inline">
+                    <div class="form-group">
+                        <label>내선 번호(선택사항)</label><br>
+                        <input type="tel" class="form-control" style='width:150px;' id="inputMobile1" name="mem_companyphone2" >&nbsp;―&nbsp;
+                        <input type="tel" class="form-control" style='width:150px;' id="inputMobile2" name="mem_companyphone3" >&nbsp;―&nbsp;
+                        <input type="tel" class="form-control" style='width:150px;' id="inputMobile3" name="mem_companyphone1" >&nbsp;
+                    </div>
+                    </div><br>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
@@ -149,33 +189,7 @@
         }).open();
     }
 </script>
-                    </div>
-                    <div class="form-group">
-                    <label for="mem_dept">부서</label>
-                    <select name="mem_dept">
-                    <option value="개발부">개발부</option>
-                    <option value="관리부">관리부</option>
-                    <option value="영업부">영업부</option>
-                    </select>
-                    </div>
-<!--      <div class="dropdown"> -->
-<!--   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!--     Dropdown button -->
-<!--   </button> -->
-<!--   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> -->
-<!--     <a class="dropdown-item" href="#">Action</a> -->
-<!--     <a class="dropdown-item" href="#">Another action</a> -->
-<!--     <a class="dropdown-item" href="#">Something else here</a> -->
-<!--   </div> -->
-<!-- </div> -->
-<!--                     <div class="form-group"> -->
-<!--                     <label for="mem_loc">지역</label> -->
-<!--                     <select name="mem_loc"> -->
-<!--                     <option value="부산">부산</option> -->
-<!--                     <option value="서울">서울</option> -->
-<!--                     <option value="부천">부천</option> -->
-<!--                     </select> -->
-<!--                     </div> -->
+
 
                     
 
@@ -192,6 +206,14 @@
             </div>
 		</div>
         </article>
+        <script type="text/javascript">
+        $(function () {
+        	  $("#mydd a").click(function () {
+        	    $("#dropdownMenu1").html($(this).html() + ' <span class="caret"></span>');
+        	    
+        	  });
+        	});
+        </script>
 <!--         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script> -->
 <!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script> -->

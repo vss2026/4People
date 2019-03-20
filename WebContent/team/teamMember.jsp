@@ -166,8 +166,7 @@ String pm = null;
   <li role="presentation"><a style=" font-weight:700;" href="#">설정</a></li>
   </ul>
   </div>
-  
-	</article>	
+	</article>
 
 <div class="row" id="d_member">
    <div class="col-md-6 col-md-offset-3"><h2 id='inwon'>인원(<%=memberList.size() %>)</h2>

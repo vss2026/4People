@@ -64,13 +64,27 @@ public class LoginController implements Controller {
 				if(key.equals("mem_addr1")||key.equals("mem_addr2")||key.equals("mem_addr3")) {
 					mem_addr+=pMap.get(key);
 				}
-				
 			}
-			logger.info("mem_addr="+mem_addr);
+			String mem_hp = pMap.get("mem_hp1")+"-"+pMap.get("mem_hp2")+"-"+pMap.get("mem_hp3");
+			pMap.put("mem_hp", mem_hp);
+			
+			String mem_companyphone = pMap.get("mem_companyphone2")+"-"+pMap.get("mem_companyphone3")+"-"+pMap.get("mem_companyphone1");
+			pMap.put("mem_companyphone", mem_companyphone);
+			
+			String mem_id = pMap.get("mem_id1")+"@"+pMap.get("mem_id2");
+			pMap.put("mem_id", mem_id);
 			pMap.put("mem_addr", mem_addr);
-			l_logic.signUp(pMap);
+			pMap.put("mem_connect","0");
+			
+			logger.info("mem_id="+mem_id);
+			logger.info("mem_addr="+mem_addr);
+			logger.info("mem_hp="+mem_hp);
+			logger.info("mem_companyphone="+mem_companyphone);
+			
+			int result =l_logic.signUp(pMap);
 //			path="forward|login.jsp";
-			path="forward:./login.jsp";
+			req.setAttribute("result",result);
+			path="forward:./signUpResult.jsp";
 		}
 		return path;
 	}

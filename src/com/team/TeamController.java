@@ -23,11 +23,12 @@ public class TeamController implements Controller {
 		String path=null;
 		HttpSession session = req.getSession(true);
 		command = req.getParameter("command");
-		Map<String,Object> pMap = new HashMap<String,Object>();
-		HashMapBinder binder = new HashMapBinder(req);
-		binder.bind(pMap);
+		
 		if(command!=null) {
 			if("board".equals(command)) {
+				Map<String,Object> pMap = new HashMap<String,Object>();
+				HashMapBinder binder = new HashMapBinder(req);
+				binder.bind(pMap);
 				logger.info("TeamController board 호출");
 				pMap.put("mem_id",session.getAttribute("mem_id"));
 	
@@ -48,6 +49,9 @@ public class TeamController implements Controller {
 			//member정보
 			else if("member".equals(command)) {
 				logger.info("TeamController member 호출");
+				Map<String,Object> pMap = new HashMap<String,Object>();
+				HashMapBinder binder = new HashMapBinder(req);
+				binder.ajaxBind(pMap);
 				pMap.put("p_code",String.valueOf(1));
 				for(String key:pMap.keySet()) {
 					logger.info(key+" pMap:"+pMap.get(key));
@@ -78,7 +82,9 @@ public class TeamController implements Controller {
 			//친구초대 검색시||친구초대시
 			else if("invite".equals(command)) {
 				
-				
+				Map<String,Object> pMap = new HashMap<String,Object>();
+				HashMapBinder binder = new HashMapBinder(req);
+				binder.ajaxBind(pMap);
 				pMap.put("p_code",String.valueOf(1));
 				for(String key:pMap.keySet()) {
 					logger.info(key+" pMap:"+pMap.get(key));

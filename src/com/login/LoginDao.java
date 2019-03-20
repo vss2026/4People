@@ -53,21 +53,31 @@ public class LoginDao {
 		}
 		return loginList;
 	}
-	public void signUp(Map<String, Object> pMap) {
+	public int signUp(Map<String, Object> pMap) {
+		int result =0;
 		try {
 			String resource = "com/mybatis/Configuration.xml";
 			Reader reader = null;
 			reader = Resources.getResourceAsReader(resource);
 			sqlMap = new SqlSessionFactoryBuilder().build(reader);
 			session = sqlMap.openSession(); 
-			session.insert("signUp", pMap);
+			String sql = session.getConfiguration().getMappedStatement("signUp").getBoundSql(pMap).getSql();
+	        List<ParameterMapping> parameterMappings = session.getConfiguration().getMappedStatement("signUp").getBoundSql(pMap).getParameterMappings();
+	        
+	        for (ParameterMapping parameterMapping : parameterMappings) {
+	            String param = (String) pMap.get(parameterMapping.getProperty());
+	            sql = sql.replaceFirst("\\?", "'" + param + "'");
+	        }
+	 
+	        logger.info("sql : " + sql);
+			 result=session.insert("signUp", pMap);
 			session.commit();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	
-		
+		return result;
 		
 	}
 

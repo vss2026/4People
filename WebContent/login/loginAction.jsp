@@ -22,10 +22,12 @@
 	
 	
 	<script>
-		location.href="../board/board.for?crud=sel&mem_id="id;
+<%-- 		location.href="../board/board.for?crud=sel&mem_id=<%=id %>"; --%>
+		location.href="../board/board.jsp";
 	</script>
 	<%
-	} else if(loginList.size()==0||loginList==null){%>
+	} else if(loginList.size()==0||loginList==null){
+	%>
 	<script>
 		alert("로그인실패");
 		history.go(-1);

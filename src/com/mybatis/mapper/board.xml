@@ -1,24 +1,52 @@
 <?xml version="1.0" encoding="EUC-KR"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mybatis.mapper.login">
-	<insert id="BoardIns" parameterType="java.util.Map" statementType="CALLABLE">
-		{call Board_Ins(#{boardtitle, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
-						,#{color, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
-		)}
+<mapper namespace="com.mybatis.mapper.board">
+<!-- 	<insert id="BoardIns" parameterType="java.util.Map" statementType="CALLABLE"> -->
+<!-- 		{call Board_Ins(#{boardtitle, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String} -->
+<!-- 						,#{color, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String} -->
+<!-- 		)} -->
 	
-	</insert>
-	<select id="BoardSel" resultType="java.util.Map" statementType="CALLABLE">
-		{call Board_Ins(#{mem_id, mode=IN, jdbcType=VARHCHAR, javaType=java.lang.String}
-		               ,#{r_cursor, mode=OUT, jdbcType=CURSOR, javaType=java.lang.String}
+<!-- 	</insert> -->
+<!-- 	<resultMap id="teamMap" type="com.vo.tema_memberVO"/> -->
+<!-- 	<result property="MEM_ID" column="com.vo.boardVO"/> -->
+<!-- 	<result property="TEAM_CODE" column="TEAM_CODE"/> -->
+<!-- 	</resultMap> -->
+	<resultMap id="boardMap" type="com.vo.boardVO">
+	<result property="team_code" column="team_code"/>
+	<result property="board_title" column="board_title"/>
+	<result property="board_no" column="board_no"/>
+	<result property="board_update" column="board_update"/>
+	<result property="board_color" column="board_color"/>
+	</resultMap>
+<!-- 	resultType="java.util.Map" -->
+	<select id="BoardSel"  statementType="CALLABLE" parameterType="com.vo.boardVO" >
+		{call proc_board_sel(#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		               ,#{board_cursor, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=boardMap}
 		)}
 	</select>
-	<update id="BoardUpd" parameterType="java.util.Map">
-	 update board
-	 set board_update = 0
-	 where board_no = #{id}
-	</update>
+<!-- 		               ,#{team_cursor, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=boardMap  } -->
+	                
+<!-- 	<select id="BoardSel" resultType="java.util.Map" > -->
+<!-- 		select bd.board_no, bd.board_title,bd.board_update, bd.board_color,tm.team_name -->
+<!--          from team tm, team_member tmbr , board bd -->
+<!--              where bd.mem_id = #{mem_id} -->
+<!--          and bd.mem_id = TMBR.MEM_ID -->
+<!--         and tmbr.team_code = tm.team_code -->
+<!--        and tmbr.team_code = bd.team_code -->
+<!--         and bd.team_code = tm.team_code -->
+<!-- 	</select> -->
+<!-- 	<select id="TeamSel" resultType="java.util.Map" > -->
+<!-- 		select mem_id, team_code -->
+<!--        from team_member -->
+<!--        where mem_id = #{mem_id} -->
+<!-- 	</select> -->
+<!-- 	<update id="BoardUpd" parameterType="java.util.Map"> -->
+<!-- 	 update board -->
+<!-- 	 set board_update = 0 -->
+<!-- 	 where board_no = #{id} -->
+<!-- 	</update> -->
 	
-	<insert id="BoardListIns" parameterType="map">
+<!-- 	<insert id="BoardListIns" parameterType="map"> -->
 	
-	</insert>
+<!-- 	</insert> -->
 </mapper>

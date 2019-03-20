@@ -41,7 +41,7 @@ public class BoardController implements Controller {
 			
 			List<Map<String,Object>> BoardList=Bo_logic.BoardSel(pMap);
 			req.setAttribute("BoardList", BoardList);
-			path ="forward:./board.jsp";
+			path ="forward:./boardResult.jsp";
 			
 		}
 		else if("upd".equals(crud)) {

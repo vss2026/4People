@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Landing Page - Start Bootstrap Theme</title>
+  <title>인트로페이지</title>
 
   <!-- Bootstrap core CSS -->
   <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

@@ -15,7 +15,7 @@
 <!-- 	<result property="board_color" column="board_color"/> -->
 <!-- 	</resultMap> -->
 	<resultMap id="teamMap" type="java.util.Map">
-	<result property="mem_id" column="mem_id"/>
+	<result property="team_name" column="team_name"/>
 	<result property="team_code" column="team_code"/>
 	</resultMap>
 	<resultMap id="boardMap" type="java.util.Map">

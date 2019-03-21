@@ -11,8 +11,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.vo.boardVO;
 
 
@@ -38,7 +42,7 @@ public class BoardDao {
 	}
 	public List<Map<String,Object>> BoardSel(Map<String, Object> pMap) {
 		
-		List<Map<String,Object>> BoardList = null;
+		List<Map<String,Object>> BoardList = new ArrayList<Map<String,Object>>();
 		List<Map<String,Object>> TeamList = null;
 		try {
 			String resource = "com/mybatis/Configuration.xml";
@@ -59,9 +63,21 @@ public class BoardDao {
 ////			hMap.put("TeamSel", session.selectList("TeamSel",pMap));
 //			Map<String,Object> hMap =  new HashMap<String,Object>();
 			Gson g = new Gson();
-			BoardList = session.selectList("BoardSel", pMap);
-			logger.info(g.toJson(pMap));
-					logger.info(BoardList.size());
+			JsonParser jsonParser = new JsonParser();
+			
+			session.selectList("BoardSel", pMap);
+//			logger.info(pMap.get("boardMap"));
+//		  jsonParser.parse(g.toJson(pMap.get("boardMap")));
+//			JsonElement rootObejct = jsonParser.parse(g.toJson(pMap.get("boardMap")));
+//			logger.info(rootObejct.getAsJsonObject().get("team_code"));
+//			logger.info(rootObejct.getAsJsonObject().get("board_title"));
+
+			
+//			JsonObject jsonObject = (JsonObject) obj;
+//			JsonObject dataObject = (JsonObject) jsonObject.get("data");
+			 BoardList.add(pMap);
+//			logger.info(g.toJson(pMap));
+//					logger.info(BoardList.size());
 //					("BoardSel",pMap);
 //					logger.info(BoardVO.getBoard_title());
 					//logger.info(pMap.get("boardMap"));

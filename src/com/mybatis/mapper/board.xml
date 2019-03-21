@@ -26,9 +26,9 @@
 	<result property="board_color" column="board_color"/>
 	</resultMap>
 	<select id="BoardSel"  statementType="CALLABLE" parameterType="map"   >
-		{call proc_board_sel2(#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+		{call proc_board_sel(#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
 		               ,#{teamMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=teamMap  }
-<!-- 		               ,#{board_cursor, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=boardMap} -->
+		               ,#{boardMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=boardMap}
 		)}
 	</select>
 	                

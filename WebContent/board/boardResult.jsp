@@ -1,43 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ page import ="java.util.*" %> 
+ <%@ page import ="com.google.gson.Gson, com.google.gson.JsonObject ,com.google.gson.JsonParser" %> 
 <%
 	List<Map<String,Object>> boardList = (List<Map<String,Object>>)request.getAttribute("BoardList");
+			List<String> TeamCr = (List<String>)boardList.get(0).get("teamMap");
+			List<String> boardCr = (List<String>)boardList.get(0).get("boardMap");
 // 			List<String> board_color= new ArrayList<String>();
 // 			List<String> board_title= new ArrayList<String>();
 // 			List<String> board_upd = new ArrayList<String>();
-// 			List<String> team_no = new ArrayList<String>();
+			List<String> t_team_code = new ArrayList<String>();
 // 			List<String> team_name = new ArrayList<String>();
 // 	if(boardList!=null){
-// 		for(int i=0;i<boardList.size();i++){
-// 			board_color.add(boardList.get(i).get("BOARD_COLOR").toString());  
-// 			board_title.add(boardList.get(i).get("BOARD_TITLE").toString());
-// 			 board_upd.add(boardList.get(i).get("BOARD_UPDATE").toString());
-// 			 board_no.add(String.valueOf(boardList.get(i).get("BOARD_NO")));
-// 			 team_name.add(boardList.get(i).get("TEAM_NAME").toString());
-// 		}
-// 	}
-// 		for(Map<String,Object> lMap:BoardList) {
-// 			for(String key:lMap.keySet()) {
-// 				if(key.equals("BoardSel")){
-// 				lMap.get(key).equals("mem_id" );
-// 				}
-// 			}
-// 			}
-
- 	boardList.get(0).get("teamMap");
- 	boardList.get(0).get("boardMap");
+			Iterator itr = TeamCr.iterator();
+			while(itr.hasNext()){
+				//out.print(itr.next()+"<br>");
+				Map<String,Object> pMap = (Map<String,Object>)itr.next();
+				Object keys[] = pMap.keySet().toArray();
+				for(int j=0;j<keys.length;j++){
+					out.print(keys[j]+" - ");
+					out.print(pMap.get(keys[j])+"<br>");
+					if(keys[j].equals("team_code")){
+						
+					}
+					
+				}
+			}
 %>
 
 <script>
-<%--  alert(<%=team_name%>); --%>
-<%-- <c:forEach var="item" items="${"+<%= boardList.get(0).get("teamMap") %>+"}"> --%>
    
 //  var mem_id =  ${item['mem_id']}
 //  var team_code = ${item['team_code']}
-   alert(<%=boardList.get(0).get("teamMap")%>);
-   alert(<%=boardList.get(0).get("boardMap")%>);
-// </c:forEach>
 </script>
 <tr>
 	<div class=" row col-md-offset-1"style="margin-top:100px;" id="updateboard">

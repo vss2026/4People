@@ -12,6 +12,7 @@
 	</jsp:include> 
 <title>Insert title here</title>
 <%
+	
 	   String mem_id = (String)session.getAttribute("MEM_ID");
 // 	List<Map<String,Object>> team_List = (List<Map<String,Object>>)request.getAttribute("team_List");
 // 			List<String> color2= new ArrayList<String>();
@@ -73,6 +74,7 @@
 <body>
  <script type="text/javascript">
  $(document).ready(function(){
+	 location.href="./board.for?crud=sel";
  var boardList = new Array(); 
 //  var color2 = new Array(); 
  var color2 ; 

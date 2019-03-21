@@ -6,7 +6,7 @@
 // 			List<String> board_color= new ArrayList<String>();
 // 			List<String> board_title= new ArrayList<String>();
 // 			List<String> board_upd = new ArrayList<String>();
-// 			List<String> board_no = new ArrayList<String>();
+// 			List<String> team_no = new ArrayList<String>();
 // 			List<String> team_name = new ArrayList<String>();
 // 	if(boardList!=null){
 // 		for(int i=0;i<boardList.size();i++){
@@ -24,9 +24,20 @@
 // 				}
 // 			}
 // 			}
+
+ 	boardList.get(0).get("teamMap");
+ 	boardList.get(0).get("boardMap");
 %>
+
 <script>
 <%--  alert(<%=team_name%>); --%>
+<%-- <c:forEach var="item" items="${"+<%= boardList.get(0).get("teamMap") %>+"}"> --%>
+   
+//  var mem_id =  ${item['mem_id']}
+//  var team_code = ${item['team_code']}
+   alert(<%=boardList.get(0).get("teamMap")%>);
+   alert(<%=boardList.get(0).get("boardMap")%>);
+// </c:forEach>
 </script>
 <tr>
 	<div class=" row col-md-offset-1"style="margin-top:100px;" id="updateboard">

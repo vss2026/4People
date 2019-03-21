@@ -1,8 +1,8 @@
 package com.board;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
 
+import com.google.gson.Gson;
 import com.vo.boardVO;
 
 
@@ -38,29 +39,33 @@ public class BoardDao {
 	public List<Map<String,Object>> BoardSel(Map<String, Object> pMap) {
 		
 		List<Map<String,Object>> BoardList = null;
+		List<Map<String,Object>> TeamList = null;
 		try {
 			String resource = "com/mybatis/Configuration.xml";
 			Reader reader =null;
 			reader = Resources.getResourceAsReader(resource);
 			sqlMap = new SqlSessionFactoryBuilder().build(reader);
 			session = sqlMap.openSession();
-			boardVO BoardVO = new boardVO();
+//			boardVO BoardVO = new boardVO();
 //				BoardVO.setMem_id(pMap.get("mem_id").toString());
 //				logger.info(BoardVO.getMem_id());
 //			session.sele
-//			List<boardVO> test = session.selectList("BoardSel",pMap);
-//			session.select
+//			List<boardVO> test = session.selectList("BoardSel",BoardVO);
 //			logger.info(test);
+//			session.select
 //			logger.info(test.size());
 //			Map<String,Object> hMap = new HashMap<String,Object>();
 //			hMap.put("BoardSel", session.selectList("BoardSel",pMap));
-//			hMap.put("TeamSel", session.selectList("TeamSel",pMap));
-//			BoardList= 
-					session.selectList("BoardSel", pMap);
+////			hMap.put("TeamSel", session.selectList("TeamSel",pMap));
+//			Map<String,Object> hMap =  new HashMap<String,Object>();
+			Gson g = new Gson();
+			BoardList = session.selectList("BoardSel", pMap);
+			logger.info(g.toJson(pMap));
+					logger.info(BoardList.size());
 //					("BoardSel",pMap);
-					logger.info(BoardVO.getBoard_title());
-					logger.info(pMap.get("teamMap"));
-					logger.info(pMap.get("boardMap"));
+//					logger.info(BoardVO.getBoard_title());
+					//logger.info(pMap.get("boardMap"));
+					//logger.info(BoardList.size());
 //					Iterator<String> keys =((HashMap)pMap.get("teamMap")).keySet().iterator();
 //					while(keys.hasNext()) {
 //						String key = keys.next();

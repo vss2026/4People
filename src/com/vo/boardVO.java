@@ -10,6 +10,7 @@ public class boardVO {
 	 private String board_color   ="";
 	 private String mem_id        ="";
 	 private List<boardVO> board_cursor =null;
+	 private List<boardVO> team_cursor =null;
 	
 	public String getTeam_code() {
 		return team_code;
@@ -52,5 +53,11 @@ public class boardVO {
 	}
 	public void setBoard_cursor(List<boardVO> board_cursor) {
 		this.board_cursor = board_cursor;
+	}
+	public List<boardVO> getTeam_cursor() {
+		return team_cursor;
+	}
+	public void setTeam_cursor(List<boardVO> team_cursor) {
+		this.team_cursor = team_cursor;
 	}    
 }

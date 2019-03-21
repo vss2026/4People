@@ -7,22 +7,28 @@
 <!-- 		)} -->
 	
 <!-- 	</insert> -->
-	<resultMap id="teamMap" type="map">
+<!-- 	<resultMap id="teamMap" type="com.vo.boardVO"> -->
+<!-- 	<result property="team_code" column="team_code"/> -->
+<!-- 	<result property="board_title" column="board_title"/> -->
+<!-- 	<result property="board_no" column="board_no"/> -->
+<!-- 	<result property="board_update" column="board_update"/> -->
+<!-- 	<result property="board_color" column="board_color"/> -->
+<!-- 	</resultMap> -->
+	<resultMap id="teamMap" type="java.util.Map">
 	<result property="mem_id" column="mem_id"/>
 	<result property="team_code" column="team_code"/>
 	</resultMap>
-	<resultMap id="boardMap" type="map">
+	<resultMap id="boardMap" type="java.util.Map">
 	<result property="team_code" column="team_code"/>
 	<result property="board_title" column="board_title"/>
 	<result property="board_no" column="board_no"/>
 	<result property="board_update" column="board_update"/>
 	<result property="board_color" column="board_color"/>
 	</resultMap>
-<!-- 	resultType="java.util.Map" -->
-	<select id="BoardSel"  statementType="CALLABLE" parameterType="java.util.Map"  >
-		{call proc_board_sel(#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+	<select id="BoardSel"  statementType="CALLABLE" parameterType="map"   >
+		{call proc_board_sel2(#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
 		               ,#{teamMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=teamMap  }
-		               ,#{boardMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=boardMap}
+<!-- 		               ,#{board_cursor, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=boardMap} -->
 		)}
 	</select>
 	                

@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 <%
 	   String mem_id = (String)session.getAttribute("MEM_ID");
-// 	List<Map<String,Object>> boardList = (List<Map<String,Object>>)request.getAttribute("BoardList");
+// 	List<Map<String,Object>> team_List = (List<Map<String,Object>>)request.getAttribute("team_List");
 // 			List<String> color2= new ArrayList<String>();
 // 			List<String> booktitle= new ArrayList<String>();
 // 			List<String> board_upd = new ArrayList<String>();
@@ -29,6 +29,7 @@
 // 			 team_name.add(boardList.get(i).get("TEAM_NAME").toString());
 // 		}
 // 	}
+
 %>
 <!-- 	<style> -->
 

@@ -18,6 +18,7 @@
 }
 body.bggrey {
   background-color: white;
+  padding-right:0 !important;
 }
 .margin {
   margin-top: 25px;
@@ -50,33 +51,47 @@ body.bggrey {
 </style>
 
 <script type="text/javascript">
-
+var color ="btn-default";
+$(document).ready(function () {
+	//메모 저장 버튼 눌럿을때
+	document.getElementById("editButton").onclick = function () {
+		alert('저장');
+		alert(color);
+		var contents=document.getElementById("editcontent").value();
+	};
+	
+});
+	//색 저장
+	function defaultt(){
+		color ="btn-default";
+	}	 
+	function primary(){
+		color ="btn-primary";
+	}	 
+	function success(){
+		color ="btn-success";
+	}	 
+	function info(){
+		color ="btn-info";
+	}	 
+	function warning(){
+		color ="btn-warning";
+	}	 
+	function danger(){
+		color ="btn-danger";
+	}
+	
+	
+	//새 메모눌럿을떄 모달띄우기
 	function newNoteModal(){
-		alert('함수호출');
-		$('#okModal').modal('show');
+		$('#editModal').modal('show');
 	}
 
 </script>
 
 </head>
 <body class='bggrey'>
-<div class="modal fade" id="okModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Solved</h4>
 
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you don't need this note anymore?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" id="yesButton" data-dismiss="modal">Yes</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-        </div>
-      </div>
-    </div>
-  </div>
 <!-- 상단 -->
 <nav class="navbar navbar-default es_info-color" style='border:0;'>
   <div class="container-fluid">
@@ -95,7 +110,7 @@ body.bggrey {
       <ul class="nav navbar-nav">
      
 
-        <li><a href="javascript:newNoteModal()"><i class="fas fa-plus-circle fa-2x"></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;새 노트</span></a></li>
+        <li><a href="javascript:newNoteModal()"><i class="fas fa-plus-circle fa-2x"></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;새 메모</span></a></li>
         <li><a href="#"><i class="fas fa-envelope-open fa-2x"></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;내 우편함</span></a></li>
         <li><a href="#"><i class="fas fa-paper-plane fa-2x"></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;메모 보내기</span></a></li>
       </ul>
@@ -107,26 +122,61 @@ body.bggrey {
 
 <!-- /상단 -->
 <!-- body -->
-<!-- <div class="container-fluid" style="height: 95vh"> -->
-<!--     <div class="row content" style="height: 100%"> -->
-<!--       <div class="col-sm-12" style="height: 100%"> -->
-<!--         <h1>메모</h1> -->
-<!--         <div class="row border" style="height: 50%; overflow:auto"> -->
-<!--           <div class="col-sm-12" id="container"> -->
+<div class="container-fluid" style="height: 95vh">
+    <div class="row content" style="height: 100%">
+      <div class="col-sm-12" style="height: 100%">
+        <h1>메모</h1>
+        <div class="row border" style="height: 50%; overflow:auto">
+          <div class="col-sm-12" id="container">
 
-<!--           </div> -->
-<!--         </div> -->
-<!--         <div class="row" style="height: 50%; overflow:auto"> -->
-<!--           <div class="col-sm-12"> -->
-<!--             <h1>쪽지</h1> -->
-<!--             <div class="row" id="deletedContainer"> -->
+          </div>
+        </div>
+        <div class="row" style="height: 50%; overflow:auto">
+          <div class="col-sm-12">
+            <h1>쪽지</h1>
+            <div class="row" id="deletedContainer">
 
-<!--             </div> -->
-<!--           </div> -->
-<!--         </div> -->
-<!--       </div> -->
-<!--       </div> -->
-<!--       </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
 <!-- body -->
+<!-- modal -->
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Memo</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" name="editNote" id="editSticky">
+            <div class="control-group form-group">
+            </div>
+            <div class="control-group form-group">
+              <div class="controls">
+                <label for="content">내용</label>
+                <textarea id="editcontent" class="form-control" maxlength="999" rows="10" cols="100" required style="resize: none;"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer" id="create">
+            <input type="button" style="float:left" class="btn btn-default" onClick="defaultt()"/>
+            <input type="button" style="float:left" class="btn btn-primary" onClick="primary()"/>
+            <input type="button" style="float:left" class="btn btn-success" onClick="success()"/>
+            <input type="button" style="float:left" class="btn btn-info" onClick="info()"/>
+            <input type="button" style="float:left" class="btn btn-warning" onClick="warning()"/>
+            <input type="button" style="float:left" class="btn btn-danger" onClick="danger()"/>
+            </div>
+            <div id="success"></div>
+            <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+            <button type="button" class="btn btn-primary pull-right" id="editButton" style="margin-bottom:10px" data-dismiss="modal">저장</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- modal -->
 </body>
 </html>

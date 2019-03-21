@@ -60,7 +60,7 @@ a, a:hover, a:focus {
 ----------------------------------------------------- */
 .es_wrapper {
     display: block;
-    margin-bottom:60px;
+    margin-bottom:80px;
 }
 .es_overlay {
     display: none;

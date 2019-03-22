@@ -18,7 +18,7 @@ public class HashMapBinder {
 		while(en.hasMoreElements())
 		{
 			String key = en.nextElement();
-			pMap.put(key,HangulConversion.toUTF(req.getParameter(key)));
+			pMap.put(key,req.getParameter(key));
 //			try {
 //				pMap.put(key,URLDecoder.decode(req.getParameter(key),"UTF-8"));
 //			} catch (UnsupportedEncodingException e) {

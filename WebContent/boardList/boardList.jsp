@@ -11,16 +11,21 @@
 	</jsp:include> 
 <title>Insert title here</title>
 <%
-	List<Map<String,Object>> board_List =(List<Map<String,Object>>)request.getAttribute("board_List");
-	
-	List<String> bd_no =new ArrayList<String>();
-	List<String> bd_title = new ArrayList<String>();
-	if(board_List!=null){
-	for(Map<String,Object> rMap:board_List){
-	 bd_no.add(String.valueOf(rMap.get("BD_NO")));
-	 bd_title.add(rMap.get("BD_TITLE").toString());
- }
- 	}
+   String mem_id = (String)session.getAttribute("MEM_ID");
+	String board_no = (String)request.getAttribute("board_no");
+
+ List<Map<String,Object>> board_List =(List<Map<String,Object>>)request.getAttribute("b_boardList");
+
+		List<String> BLIST_NO =new ArrayList<String>();
+		List<String> BLIST_TITLE = new ArrayList<String>();
+		List<String> BL_team_code = new ArrayList<String>();
+		if(board_List!=null){
+		for(Map<String,Object> rMap:board_List){
+			BLIST_NO.add(String.valueOf(rMap.get("BLIST_NO")));
+			BLIST_TITLE.add(rMap.get("BLIST_TITLE").toString());
+			BL_team_code.add(rMap.get("TEAM_CODE").toString());
+		}	
+		}
 %>
 <script type="text/javascript">
 	function cardAdd(id){
@@ -40,7 +45,7 @@
 			
 			$.ajax({
 				type:"POST"
-			   ,url:"./boardList.for?crud=ins"
+			   ,url:"./boardList.for?crud=ins&team_code=<%=BL_team_code%>&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2
 			   ,data:param
 			   ,dataType:"html"
 			   ,success:function(result){
@@ -107,8 +112,8 @@
 	
 </script>
 </head>
-<body style="#BDBDBD;">
-	<div id="haha" class="panel panel-primary"  ">
+<body style="background-color:2489F8;">
+	<div id="haha" class="panel panel-primary"  >
     <div class="panel-heading">
         <h3 class="panel-title"><img src="../images/team.png"> 자바팀</h3>
     </div>
@@ -116,30 +121,48 @@
     
     <!--===================== 리스트들============================= -->
      <div  id="jae">
-    <div id="min" class="panel panel-default col-sm-2" style="background-color: #F6F6F6;">
+		<% for(int i=0;i<BLIST_NO.size();i++){ %>
+     <div id=<%=BLIST_NO.get(i) %> class="panel panel-default col-sm-2" style="background-color: #F6F6F6;">
+  <!-- Default panel contents -->
+     <div  class="panel-heading"><h4 id="listtitle"><%=BLIST_TITLE.get(i) %></h4></div>
+
+  <!-- Table -->
+     <table class="table" id=<%=BLIST_NO.get(i)+ "cardAdd"%>>
+ 	  <tr id=<%=BLIST_NO.get(i)+"tt" %>>
+ 	  </tr>
+ 	  <tr id=<%=BLIST_NO.get(i)+"bb" %>> 	
+   	</tr>
+  </table>
+  <div class="panel-heading"><a id="gg" href="javascript:cardAdd(<%=BLIST_NO.get(i) %>)" >+ 새 카드 추가하기</a></div>
+</div>
+
+<%}%>
+ <div id=min class="panel panel-default col-sm-2" style="background-color: #F6F6F6;">
   <!-- Default panel contents -->
   <div  class="panel-heading"><h4 id="listtitle"></h4></div>
 
   <!-- Table -->
   <table class="table" id="cardAdd">
- 	<tr id="tt">
+ 	<tr id="ggtt" >
  	</tr>
- 	<tr id="bb"> 	
+ 	<tr id="ggbb"> 	
  	</tr>
   </table>
-  <div class="panel-heading"><a id="gg" href="javascript:cardAdd()" >+ 새 보드 추가하기</a></div>
+  <div class="panel-heading"><a id="gg" href="javascript:cardAdd('gg')" >+ 새 보드 추가하기</a></div>
+  
 </div>
-</div>
+    </div>
 <!--=====================리스트 끝 ================================ -->
 <script type="text/javascript">
-board_ListSel();
+// board_ListSel();
 function board_ListSel(){
 	$('#jae').empty();
 //		if($('#gg').text()=="+ 새 보드 추가하기"){
-		
+		var param ="board_no=<%=board_no%>"
 		$.ajax({
 			type:"POST"
 		   ,url:"./boardList.for?crud=sel"
+		   ,data:param
 		   ,dataType:"html"
 		   ,success:function(result){
 			   $("#jae").html(result);
@@ -149,8 +172,6 @@ function board_ListSel(){
 			  $("#d_table").text(e.responseText);
 		  }
 		});
-	
-	
 }
 
 

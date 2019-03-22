@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="EUC-KR"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.board">
-<!-- 	<insert id="BoardIns" parameterType="java.util.Map" statementType="CALLABLE"> -->
-<!-- 		{call Board_Ins(#{boardtitle, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String} -->
-<!-- 						,#{color, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String} -->
-<!-- 		)} -->
 	
-<!-- 	</insert> -->
-<!-- 	<resultMap id="teamMap" type="com.vo.boardVO"> -->
-<!-- 	<result property="team_code" column="team_code"/> -->
-<!-- 	<result property="board_title" column="board_title"/> -->
-<!-- 	<result property="board_no" column="board_no"/> -->
-<!-- 	<result property="board_update" column="board_update"/> -->
-<!-- 	<result property="board_color" column="board_color"/> -->
-<!-- 	</resultMap> -->
+	
+	<insert id="BoardIns" parameterType="java.util.Map" >
+		INSERT INTO BOARD(board_no,team_code,board_title,board_update,board_color,mem_id) 
+		VALUES(seq_board_no.nextval,#{team_code},#{boardtitle},1,#{color},#{mem_id})
+	
+	</insert>
+
 	<resultMap id="teamMap" type="java.util.Map">
 	<result property="team_name" column="team_name"/>
 	<result property="team_code" column="team_code"/>
 	</resultMap>
+	
 	<resultMap id="boardMap" type="java.util.Map">
 	<result property="team_code" column="team_code"/>
 	<result property="board_title" column="board_title"/>
@@ -25,6 +21,7 @@
 	<result property="board_update" column="board_update"/>
 	<result property="board_color" column="board_color"/>
 	</resultMap>
+	
 	<select id="BoardSel"  statementType="CALLABLE" parameterType="map"   >
 		{call proc_board_sel(#{mem_id, mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
 		               ,#{teamMap, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=teamMap  }
@@ -32,27 +29,20 @@
 		)}
 	</select>
 	                
-<!-- 	<select id="BoardSel" resultType="java.util.Map" > -->
-<!-- 		select bd.board_no, bd.board_title,bd.board_update, bd.board_color,tm.team_name -->
-<!--          from team tm, team_member tmbr , board bd -->
-<!--              where bd.mem_id = #{mem_id} -->
-<!--          and bd.mem_id = TMBR.MEM_ID -->
-<!--         and tmbr.team_code = tm.team_code -->
-<!--        and tmbr.team_code = bd.team_code -->
-<!--         and bd.team_code = tm.team_code -->
-<!-- 	</select> -->
-<!-- 	<select id="TeamSel" resultType="java.util.Map" > -->
-<!-- 		select mem_id, team_code -->
-<!--        from team_member -->
-<!--        where mem_id = #{mem_id} -->
-<!-- 	</select> -->
-<!-- 	<update id="BoardUpd" parameterType="java.util.Map"> -->
-<!-- 	 update board -->
-<!-- 	 set board_update = 0 -->
-<!-- 	 where board_no = #{id} -->
-<!-- 	</update> -->
+
+	<update id="BoardUpd" parameterType="java.util.Map">
+	 update board
+	 set board_update = 0
+	 where board_no = #{board_no}
+	</update>
 	
-<!-- 	<insert id="BoardListIns" parameterType="map"> -->
-	
-<!-- 	</insert> -->
+	<insert id="BoardListIns" parameterType="map">
+		insert into board_List(BLIST_NO,BOARD_NO,BLIST_TITLE,TEAM_CDOE,MEM_ID)
+		       value(seq_boardList_no.nextval,#{board_no},#{BLIST_TITLE},#{team_code},#{mem_id})
+	</insert>
+	<select id="BoardListSel" parameterType="map" resultType="map">
+		select BLIST_NO, BLIST_TITLE, team_code
+          from board_list
+          where board_no = #{board_no} 
+	</select>
 </mapper>

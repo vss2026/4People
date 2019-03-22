@@ -1,6 +1,7 @@
 package com.boardlist;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +22,28 @@ public class BoardListController implements Controller {
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String path=null;
 		crud = req.getParameter("crud");
+		String board_no = req.getParameter("board_no");
+		String team_code = req.getParameter("team_code");
 		Map<String,Object> pMap = new HashMap<String,Object>();
 		HashMapBinder binder = new HashMapBinder(req);
 		binder.bind(pMap);
+		List<Map<String,Object>> b_boardList =null;
 		if("ins".equals(crud)) {
 			Bdlist_logic.BdlistIns(pMap);
-			path ="redirect:./boardList.for?crud=sel";
+//			path ="redirect:./boardListfor?crud=sel&board_no="+board_no;
+			path ="redirect:./boardList.jsp";
+		}
+		else if("sel2".equals(crud)) {
+			b_boardList =Bdlist_logic.BdlistSel(pMap);
+			req.setAttribute("b_boardList", b_boardList);
+			req.setAttribute("board_no", board_no);
+			path="forward:./boardList.jsp";
+		}
+		else if("sel".equals(crud)) {
+			b_boardList =Bdlist_logic.BdlistSel(pMap);
+			req.setAttribute("b_boardList", b_boardList);
+			req.setAttribute("board_no", board_no);
+			path="forward:./boardListResult.jsp";
 		}
 		return path;
 	}

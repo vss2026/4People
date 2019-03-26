@@ -241,8 +241,6 @@ $(document).ready(function () {
 	}
 	//내용확인후 확인버튼 눌럿을떄
 	document.getElementById("sendButtonOk").onclick = function (){
-		alert(send_contents);
-		alert(receive_id);
 		var param = "mb_content="+send_contents+"&receive_id="+receive_id+"&note_code="+color;
 		$.ajax({
 			type:"POST"
@@ -426,7 +424,6 @@ $(document).ready(function () {
 				   ,data:param
 				   ,dataType:"json"
 				   ,success:function(data){
-					   alert(data);
 // 					   $('#messageModal').modal('show');
 						$('#messageModalBody').empty();		
 					   $.each(data , function( key, val){
@@ -447,14 +444,11 @@ $(document).ready(function () {
 							var checkid=$(this).attr('id');
 							var str = checkid.split("k");
 							var id = str[1];
-							alert(str[1]);
 							if($("input:checkbox[id="+checkid+"]").is(":checked") == true){ 
 								var append = "<input  type='hidden' name='"+id+"' value='"+id+"'  id='"+id+"'/>"
 								$('#checkDatas').append(append);
-								alert('true');
 							}
 							else{
-								alert('false');
 								var el = $("#"+id);
 								el.remove();
 								$('#checkDatas').removeChild(el);

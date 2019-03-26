@@ -25,6 +25,5 @@
 		
 		
 		
-		<mapper resource="com/mybatis/mapper/board.xml" />
 	</mappers>
 </configuration> 

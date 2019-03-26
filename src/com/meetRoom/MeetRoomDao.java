@@ -2,6 +2,8 @@ package com.meetRoom;
 
 import java.io.Reader;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
@@ -11,9 +13,10 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
 
 import com.board.BoardDao;
+import com.vo.MeetRoomVO;
 
 public class MeetRoomDao {
-	SqlSessionFactory  sqlMap ;
+	SqlSessionFactory  sqlSessionFactory ;
 	//
 	SqlSession session;
 	Logger logger = Logger.getLogger(MeetRoomDao.class);
@@ -25,8 +28,8 @@ public class MeetRoomDao {
 			String resource ="com/mybatis/Configuration.xml";
 			Reader reader = null;
 			reader =Resources.getResourceAsReader(resource);
-			 sqlMap  = new SqlSessionFactoryBuilder().build(reader);
-			 session = sqlMap.openSession();
+			sqlSessionFactory  = new SqlSessionFactoryBuilder().build(reader);
+			 session = sqlSessionFactory.openSession();
 			 result=session.selectOne("meetRoomIns",pMap);
 			 
 			 session.commit();
@@ -42,4 +45,5 @@ public class MeetRoomDao {
 		
 		return result;
 	}
+
 }

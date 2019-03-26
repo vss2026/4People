@@ -29,6 +29,9 @@ public class MeetRoomController implements Controller {
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		crud = req.getParameter("crud");
 		logger.info("crud==>"+crud);
+		Map<String,Object> pMap = new HashMap<String,Object>();
+		HashMapBinder binder = new HashMapBinder(req);
+		binder.bind(pMap);
 		if("ins".equals(crud)) {
 		
 			logger.info(req.getParameter("mr_image"));
@@ -36,9 +39,6 @@ public class MeetRoomController implements Controller {
 			logger.info(req.getParameter("mr_loc"));
 			logger.info("회의실 입력 호출");
 			int result=0;
-			Map<String,Object> pMap = new HashMap<String,Object>();
-			HashMapBinder binder = new HashMapBinder(req);
-			binder.bind(pMap);
 			
 			result = mtRoom_logic.meetRoomIns(pMap);
 			if(result==1) {//1이면 등록성공 
@@ -46,8 +46,7 @@ public class MeetRoomController implements Controller {
 			}else if(result ==0) {//0이면 등록 실패
 				this.path="redirect:./mtRoomFail.jsp";
 			}
-		/*	mtRoom_logic.meetRoomIns(pMap);
-			path="redirect:./meetRoom.for?crud=sel";*/
+		
 		}
 		logger.info("path:"+path);
 		return path;

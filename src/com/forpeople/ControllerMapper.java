@@ -6,6 +6,7 @@ import com.board.BoardController;
 import com.boardlist.BoardListController;
 import com.calendar.CalendarController;
 import com.login.LoginController;
+import com.meetRoom.MeetRoomController;
 import com.note.NoteController;
 import com.team.TeamController;
 
@@ -51,6 +52,9 @@ public class ControllerMapper {
 			
 			else if("calendar".equals(category)){
 				controller = new CalendarController(category, crud);
+				
+			}else if("meetRoom".equals(category)) {
+				controller = new MeetRoomController();
 			}
 		}
 		return controller;

@@ -1,6 +1,7 @@
 package com.board;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,16 +33,16 @@ public class BoardDao {
 		}
 	}
 	public List<Map<String,Object>> BoardSel(Map<String, Object> pMap) {
-		List<Map<String,Object>> BoardList = null;
+		
+		List<Map<String,Object>> BoardList = new ArrayList<Map<String,Object>>();
 		try {
 			String resource = "com/mybatis/Configuration.xml";
 			Reader reader =null;
 			reader = Resources.getResourceAsReader(resource);
 			sqlMap = new SqlSessionFactoryBuilder().build(reader);
-			session = sqlMap.openSession(); 
-			BoardList = session.selectList("BoardSel",pMap);
-			logger.info("BoardList:"+BoardList);
-			
+			session = sqlMap.openSession();
+			session.selectList("BoardSel", pMap);
+			 BoardList.add(pMap);
 		} catch (Exception e) {
 				e.printStackTrace();
 		}

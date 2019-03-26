@@ -2,28 +2,33 @@
     pageEncoding="UTF-8"%>
  <%@ page import ="java.util.*" %>   
 <%
-List<Map<String,Object>> board_List =(List<Map<String,Object>>)request.getAttribute("board_List");
+   String mem_id = (String)session.getAttribute("MEM_ID");
+	String board_no = (String)request.getAttribute("board_no");
 
-		List<String> bd_no =new ArrayList<String>();
-		List<String> bd_title = new ArrayList<String>();
+ List<Map<String,Object>> board_List =(List<Map<String,Object>>)request.getAttribute("b_boardList");
+
+		List<String> BLIST_NO =new ArrayList<String>();
+		List<String> BLIST_TITLE = new ArrayList<String>();
+		List<String> BL_team_code = new ArrayList<String>();
 		for(Map<String,Object> rMap:board_List){
-			 bd_no.add(String.valueOf(rMap.get("BD_NO")));
-			 bd_title.add(rMap.get("BD_TITLE").toString());
+			BLIST_NO.add(String.valueOf(rMap.get("BLIST_NO")));
+			BLIST_TITLE.add(rMap.get("BLIST_TITLE").toString());
+			BL_team_code.add(rMap.get("TEAM_CODE").toString());
 		}	
 %>
-<% for(int i=0;i<bd_no.size();i++){ %>
- <div id=<%=bd_no.get(i) %> class="panel panel-default col-sm-2" style="background-color: #F6F6F6;">
+		<% for(int i=0;i<BLIST_NO.size();i++){ %>
+     <div id=<%=BLIST_NO.get(i) %> class="panel panel-default col-sm-2" style="background-color: #F6F6F6;">
   <!-- Default panel contents -->
-  <div  class="panel-heading"><h4 id="listtitle"><%=bd_title.get(i) %></h4></div>
+     <div  class="panel-heading"><h4 id="listtitle"><%=BLIST_TITLE.get(i) %></h4></div>
 
   <!-- Table -->
-  <table class="table" id=<%=bd_no.get(i)+ "cardAdd"%>>
- 	<tr id=<%=bd_no.get(i)+"tt" %>>
- 	</tr>
- 	<tr id=<%=bd_no.get(i)+"bb" %>> 	
- 	</tr>
+     <table class="table" id=<%=BLIST_NO.get(i)+ "cardAdd"%>>
+ 	  <tr id=<%=BLIST_NO.get(i)+"tt" %>>
+ 	  </tr>
+ 	  <tr id=<%=BLIST_NO.get(i)+"bb" %>> 	
+   	</tr>
   </table>
-  <div class="panel-heading"><a id="gg" href="javascript:cardAdd(<%=bd_no.get(i) %>)" >+ 새 카드 추가하기</a></div>
+  <div class="panel-heading"><a id="gg" href="javascript:cardAdd(<%=BLIST_NO.get(i) %>)" >+ 새 카드 추가하기</a></div>
 </div>
 
 <%}%>

@@ -11,18 +11,86 @@
 	</jsp:include> 
 <title>Insert title here</title>
 <%
-	List<Map<String,Object>> board_List =(List<Map<String,Object>>)request.getAttribute("board_List");
+   String mem_id = (String)session.getAttribute("MEM_ID");
+	String board_no = (String)request.getAttribute("board_no");
+	String titlee ="자바팀";
 	
-	List<String> bd_no =new ArrayList<String>();
-	List<String> bd_title = new ArrayList<String>();
-	if(board_List!=null){
-	for(Map<String,Object> rMap:board_List){
-	 bd_no.add(String.valueOf(rMap.get("BD_NO")));
-	 bd_title.add(rMap.get("BD_TITLE").toString());
- }
- 	}
+ List<Map<String,Object>> board_List =(List<Map<String,Object>>)request.getAttribute("b_boardList");
+		List<String> BLIST_NO =new ArrayList<String>();
+		List<String> BLIST_TITLE = new ArrayList<String>();
+		List<String> BL_team_code = new ArrayList<String>();
+		List<String> C_BLIST_NO =new ArrayList<String>();
+		List<String> CARD_CODE =new ArrayList<String>();
+		List<String> CARD_NAME =new ArrayList<String>();
+	    String t_team_code=  board_List.get(0).get("r_team_code").toString();
+		List<String> BLISTMap =(List<String>) board_List.get(0).get("BLISTMAP");
+		List<String> CARDLISTMAP =(List<String>) board_List.get(0).get("CARDLISTMAP");
+	
+		Iterator itr = BLISTMap.iterator();
+		while(itr.hasNext()){
+			Map<String,Object> pMap = (Map<String,Object>)itr.next();
+			Object keys[] = pMap.keySet().toArray();
+			for(int j=0;j<keys.length;j++){
+				if(keys[j].equals("TEAM_CODE")){
+					BL_team_code.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("BLIST_NO")){
+					BLIST_NO.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("BLIST_TITLE")){
+					BLIST_TITLE.add(pMap.get(keys[j]).toString());
+				}
+				
+			}
+		}
+		
+		Iterator ctr = CARDLISTMAP.iterator();
+		while(ctr.hasNext()){
+			Map<String,Object> pMap = (Map<String,Object>)ctr.next();
+			Object keys[] = pMap.keySet().toArray();
+			for(int j=0;j<keys.length;j++){
+				if(keys[j].equals("CARD_CODE")){
+					CARD_CODE.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("BLIST_NO")){
+					C_BLIST_NO.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("CARD_NAME")){
+					CARD_NAME.add(pMap.get(keys[j]).toString());
+				}
+				
+			}
+		}
+		
 %>
+<style type="text/css">
+.testimonial-group > .row {
+  overflow-x: auto;
+  white-space: nowrap;
+   height:830px; 
+}
+ .testimonial-group > .row > .col-sm-2 { 
+    display: inline-block;  
+    float: none;   
+ } 
+.es_info-color {
+    background-color: rgb(51, 181, 229) !important;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #FFF;
+    margin-bottom:5px;
+}
+
+/* Decorations */
+/* .col-sm-2 { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; } */
+/* .col-sm-2:nth-child(3n+1) { background: #c69; } */
+/* .col-sm-2:nth-child(3n+2) { background: #9c6; } */
+/* .col-sm-2:nth-child(3n+3) { background: #69c; } */
+</style>
 <script type="text/javascript">
+<%-- 	alert("<%=BLISTMap%>"); --%>
+<%-- 	alert("<%=CARDLISTMAP%>"); --%>
+<%-- 	alert("<%=CARD_CODE.size()%>"); --%>
 	function cardAdd(id){
 // 		alert(id);
 		document.getElementById(id+'tt').innerHTML+="<input type='text' id='"+id+"textval'>";
@@ -34,39 +102,24 @@
 		}
 	}
 	function boardlistAdd(id){
+// 		alert(id);
+		alert("<%=board_no%>");
+		var r_BL_team_code = "<%=t_team_code%>";
+		alert(r_BL_team_code);
+		alert(r_BL_team_code.substring(1,2));
+		var str_team_code = r_BL_team_code.substring(1,2);
 		var input2 = document.getElementById('ggtextval').value;
-		var param = "bd_title="+input2;
-		$('#jae').empty();
-			
-			$.ajax({
-				type:"POST"
-			   ,url:"./boardList.for?crud=ins"
-			   ,data:param
-			   ,dataType:"html"
-			   ,success:function(result){
-				   $("#jae").html(result);
-				   
-			   }
-			  ,error:function(){
-				  $("#d_table").text(e.responseText);
-			  }
-			});
-	}
-	function cardlist(id){
-// 		if(id!=null){
-			
-// 		}
-// 		alert(input);
-// 		alert(input2);
-// 		alert($('#gg').text);
-// 		if($('#gg').text()=="+ 새 보드 추가하기"){
-// 		var input2 = document.getElementById('ggtextval').value;
+		<%=titlee%> = input2;
 // 		var param = "bd_title="+input2;
-// 		$('#jae').empty();
+		var param = "crud=ins&team_code="+r_BL_team_code+"&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2;
+		alert(param);
+		$('#jae').empty();
+<%-- 		location.href="./boardList.for?crud=ins&team_code=<%=BL_team_code%>&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2; --%>
+		location.href="./boardList.for?"+encodeURI(param);
 			
 // 			$.ajax({
 // 				type:"POST"
-// 			   ,url:"./boardList.for?crud=ins"
+<%-- 			   ,url:"./boardList.for?crud=ins&team_code=<%=BL_team_code%>&mem_id=<%=mem_id%>&board_no=<%=board_no%>&BLIST_TITLE="+input2 --%>
 // 			   ,data:param
 // 			   ,dataType:"html"
 // 			   ,success:function(result){
@@ -77,83 +130,72 @@
 // 				  $("#d_table").text(e.responseText);
 // 			  }
 // 			});
-//           $('#tt').empty();
-// 		$('#bb').empty();
-// 		document.getElementById('jae').innerHTML+= document.getElementById("min").outerHTML;
-// 		document.getElementById('listtitle').innerHTML+=input;
-		
-// 		$('#gg').empty();
-// 		document.getElementById('gg').innerHTML+="+ 새 카드 추가하기";
-// 		alert($('#gg').text());
-		
-		
-// 		}
-// 		else {
-// 			alert("하하하하하");
+	}
+	function cardlist(id){
+
 		var input = document.getElementById(id+'textval').value;
           $('#'+id+'tt').empty();
 		$('#'+id+'bb').empty();
-// 	document.getElementById(id+'tt').empty();
-// 	document.getElementById(id+'bb').empty();
 		document.getElementById(id+"cardAdd").innerHTML+="<input type='button' class='btn btn-default btn-block' value='"+input+"'>";
-// 		var $div = $("<tr><input type='button' class='btn btn-default btn-block' value='"+input+"'></tr>");
-// 		  $('#cardAdd').append($div);
-// 		$('#tt').empty();
-// 		$('#bb').empty();
-// 		}
-// 		$('#tt').empty();
-// 		$('#bb').empty();
+		var r_BL_team_code = "<%=t_team_code%>";
+		var param = "crud=ins2&team_code="+r_BL_team_code+"&board_no=<%=board_no%>&mem_id=<%=mem_id%>&card_name="+input+"&BLIST_NO="+id;
+		location.href="./boardList.for?"+encodeURI(param);
+		
+
 	}
 	
 </script>
 </head>
-<body style="#BDBDBD;">
-	<div id="haha" class="panel panel-primary"  ">
+<body style="background-color:2489F8;">
+
+
+	<div id="haha" class="panel panel-primary"  >
     <div class="panel-heading">
-        <h3 class="panel-title"><img src="../images/team.png"> 자바팀</h3>
+        <h3 class="panel-title"><img src="../images/team.png"> <%=titlee%></h3>
     </div>
     </div>
     
     <!--===================== 리스트들============================= -->
-     <div  id="jae">
-    <div id="min" class="panel panel-default col-sm-2" style="background-color: #F6F6F6;">
+     <div  id="jae" class="testimonial-group">
+      <div class="row">
+		<% for(int i=0;i<BLIST_NO.size();i++){ %>
+     <div id=<%=BLIST_NO.get(i) %> class="panel panel-default col-sm-2" style="background-color: #F6F6F6; margin-left:15px;">
+  <!-- Default panel contents -->
+     <div  class="panel-heading"><h4 id="listtitle"><%=BLIST_TITLE.get(i) %></h4></div>
+
+  <!-- Table -->
+     <table class="table" id=<%=BLIST_NO.get(i)+ "cardAdd"%>>
+ 	  <tr id=<%=BLIST_NO.get(i)+"tt" %>>
+ 	  </tr>
+ 	  <tr id=<%=BLIST_NO.get(i)+"bb" %>> 	
+   	</tr>
+   	<%for(int j=0;j<C_BLIST_NO.size();j++){
+   	  if(C_BLIST_NO.get(j).equals(BLIST_NO.get(i))){
+   	   %>
+   	<input  id=<%=CARD_CODE.get(j) %> type="button" class="btn btn-default btn-block" value=<%=CARD_NAME.get(j) %>>
+   	<%}} %>
+  </table>
+  <div class="panel-heading"><a id="gg" href="javascript:cardAdd(<%=BLIST_NO.get(i) %>)" >+ 새 카드 추가하기</a></div>
+</div>
+
+<%}%>
+ <div id=min class="panel panel-default col-sm-2" style="background-color: #F6F6F6; margin-left:15px;">
   <!-- Default panel contents -->
   <div  class="panel-heading"><h4 id="listtitle"></h4></div>
 
   <!-- Table -->
   <table class="table" id="cardAdd">
- 	<tr id="tt">
+ 	<tr id="ggtt" >
  	</tr>
- 	<tr id="bb"> 	
+ 	<tr id="ggbb"> 	
  	</tr>
   </table>
-  <div class="panel-heading"><a id="gg" href="javascript:cardAdd()" >+ 새 보드 추가하기</a></div>
+  <div class="panel-heading"><a id="gg" href="javascript:cardAdd('gg')" >+ 새 보드 추가하기</a></div>
+  
 </div>
 </div>
+    </div>
 <!--=====================리스트 끝 ================================ -->
-<script type="text/javascript">
-board_ListSel();
-function board_ListSel(){
-	$('#jae').empty();
-//		if($('#gg').text()=="+ 새 보드 추가하기"){
-		
-		$.ajax({
-			type:"POST"
-		   ,url:"./boardList.for?crud=sel"
-		   ,dataType:"html"
-		   ,success:function(result){
-			   $("#jae").html(result);
-			   
-		   }
-		  ,error:function(){
-			  $("#d_table").text(e.responseText);
-		  }
-		});
-	
-	
-}
 
-
-</script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List, java.util.Map, java.util.ArrayList, java.lang.Integer" %>
+<%@ page import="java.util.List, java.util.Map, java.util.ArrayList, java.lang.Integer, java.util.Iterator" %>
 <% String name = (String)session.getAttribute("MEM_NAME"); 
 %>
 <!DOCTYPE html>
@@ -13,20 +13,63 @@
 	</jsp:include> 
 <title>Insert title here</title>
 <%
-	List<Map<String,Object>> boardList = (List<Map<String,Object>>)request.getAttribute("BoardList");
-			List<String> color2= new ArrayList<String>();
-			List<String> booktitle= new ArrayList<String>();
-			List<String> board_upd = new ArrayList<String>();
-			List<String> board_no = new ArrayList<String>();
-// 			int[] board_no = new int[boardList.size()];
-	if(boardList!=null){
-		for(int i=0;i<boardList.size();i++){
-			color2.add(boardList.get(i).get("BOARD_COLOR").toString());  
-			 booktitle.add(boardList.get(i).get("BOARD_TITLE").toString());
-			 board_upd.add(boardList.get(i).get("BOARD_UPDATE").toString());
-			 board_no.add(String.valueOf(boardList.get(i).get("BOARD_NO")));
+	
+  String mem_id = (String)session.getAttribute("MEM_ID");
+	String team_code="";
+List<Map<String,Object>> boardList = (List<Map<String,Object>>)request.getAttribute("BoardList");
+List<String> TeamCr = (List<String>)boardList.get(0).get("teamMap");
+List<String> boardCr = (List<String>)boardList.get(0).get("boardMap");
+List<String> t_team_code = new ArrayList<String>();
+List<String> t_team_name = new ArrayList<String>();
+List<String> b_team_code = new ArrayList<String>();
+List<String> b_board_no = new ArrayList<String>();
+List<String> b_board_title = new ArrayList<String>();
+List<String> b_board_update = new ArrayList<String>();
+List<String> b_board_color = new ArrayList<String>();
+Iterator itr = TeamCr.iterator();
+while(itr.hasNext()){
+	//out.print(itr.next()+"<br>");
+	Map<String,Object> pMap = (Map<String,Object>)itr.next();
+	Object keys[] = pMap.keySet().toArray();
+	for(int j=0;j<keys.length;j++){
+//			out.print(keys[j]+" - ");
+//			out.print(pMap.get(keys[j])+"<br>");
+		if(keys[j].equals("team_code")){
+			t_team_code.add(pMap.get(keys[j]).toString());
 		}
+		else if(keys[j].equals("team_name")){
+			t_team_name.add(pMap.get(keys[j]).toString());
+		}
+		
 	}
+}
+Iterator b_itr = boardCr.iterator();
+while(b_itr.hasNext()){
+	//out.print(itr.next()+"<br>");
+	Map<String,Object> pMap = (Map<String,Object>)b_itr.next();
+	Object keys[] = pMap.keySet().toArray();
+	for(int j=0;j<keys.length;j++){
+//			out.print(keys[j]+" - ");
+//			out.print(pMap.get(keys[j])+"<br>");
+		if(keys[j].equals("team_code")){
+			b_team_code.add(pMap.get(keys[j]).toString());
+		}
+		else if(keys[j].equals("board_no")){
+			b_board_no.add(pMap.get(keys[j]).toString());
+		}
+		else if(keys[j].equals("board_title")){
+			b_board_title.add(pMap.get(keys[j]).toString());
+		}
+		else if(keys[j].equals("board_update")){
+			b_board_update.add(pMap.get(keys[j]).toString());
+		}
+		else if(keys[j].equals("board_color")){
+			b_board_color.add(pMap.get(keys[j]).toString());
+		}
+		
+	}
+}
+
 %>
 <!-- 	<style> -->
 
@@ -34,18 +77,27 @@
 	<script type="text/javascript">
 	  var temp = new Array();
 	  var color ="btn-default";
+	  var team_code;
+	  function teamCodeset(id){
+		  team_code = id
+	  }
 	  function addInput() {
 	      temp=document.getElementById("op").value;
+	      alert("title: "+temp);
+	      alert("color: "+color);
+	      alert("<%=mem_id%>");
+	      alert(team_code);
 // 		  document.getElementById('parah').innerHTML+="<input type='button' class='btn "+color+" btn-lg btn-block' value="+temp+">"
-		  location.href="./board.for?crud=ins&boardtitle="+temp+"&color="+color;
+		  location.href="./board.for?crud=ins&boardtitle="+temp+"&color="+color+"&mem_id=<%=mem_id%>&team_code="+team_code;
 		}
 	  function boardupd(id){
 			alert(id);
-		  location.href="./board.for?crud=upd&id="+id;
+		  location.href="./board.for?crud=upd&board_no="+id+"&mem_id=<%=mem_id%>";
 		  
 	  }
-	  function boardmove(){
-		  location.href="../boardList/boardList.jsp";
+	  function boardmove(id){
+		  location.href="../boardList/boardList.for?crud=sel2&mem_id=<%=mem_id%>&board_no="+id+"&team_code="+team_code;
+// 		  location.href="../boardList/boardList.jsp";
 	  }
 	function defaultt(){
 		color ="btn-default";
@@ -68,13 +120,35 @@
 	</script>
 </head>
 <body>
-	<table class="table">
-	<tr>
+ 
+	<table id="board_table" class="table">
+<tr>
 	<div class=" row col-md-offset-1"style="margin-top:100px;" id="updateboard">
 	<h3 style="color:#5bc0de"> <span class="label"><img src="../images/new.jpg"></span>업데이트 </h3>
-<!-- 	<div class="col-sm-2 text-center" id="board"> -->
-<!-- 	<input type="button" class="btn btn-default btn-lg " data-target="#layerpop" data-toggle="modal" value="새 보드 생성하기..."></button> -->
-<!-- 	</div> -->
+	<%for(int k=0;k<b_team_code.size();k++) {
+		if(b_board_update.get(k).equals("1")){	
+	%>
+	<div class="col-md-2" id="<%=b_board_no.get(k)%>+u">
+	<input type='button' style='WIDTH: 150pt; HEIGHT: 100pt' id="<%=b_board_no.get(k)%>" class="btn <%=b_board_color.get(k) %> " value="<%=b_board_title.get(k) %>" onClick="boardupd(id)">
+	</div>
+<%} }%>
+	</div>
+	</tr>
+<% for(int i=0;i<t_team_code.size();i++){ %>
+<tr>
+	<div class=" row col-md-offset-1"style="margin-updateboard:700px;" >
+	<h3 style="color:#5bc0de"> <span class="label"><img src="../images/my.png"></span><%=t_team_name.get(i) %> </h3>
+	<div class="col-md-2 "id="board">
+	<input type="button" style="WIDTH: 150pt; HEIGHT: 100pt" id="<%=t_team_code.get(i) %>" class="btn btn-default " data-target="#layerpop" data-toggle="modal" value="새 보드 생성하기..." onClick="teamCodeset(id)">
+	</div>
+	<%for(int j=0;j<b_team_code.size();j++) {%>
+	<%if(t_team_code.get(i).equals(b_team_code.get(j))){ %>
+	<div class='col-md-2'>
+	<input type='button' style='WIDTH: 150pt; HEIGHT: 100pt' id="<%=b_board_no.get(j) %>" class="btn <%=b_board_color.get(j) %> " value="<%=b_board_title.get(j) %>" onClick='boardmove(id)'>
+	</div>
+	<% }
+    }	
+	%>
 	</div>
 	</tr>
 	<tr>&nbsp;</tr>
@@ -83,28 +157,7 @@
 	<tr>&nbsp;</tr>
 	<tr>&nbsp;</tr>
 	<tr>&nbsp;</tr>
-	<tr>
-	<div class=" row col-md-offset-1"style="margin-updateboard:700px;" id="myboard">
-	<h3 style="color:#5bc0de"> <span class="label"><img src="../images/my.png"></span>지유니 </h3>
-	<div class="col-sm-2 text-center" id="board">
-	<input type="button" style="WIDTH: 150pt; HEIGHT: 100pt" class="btn btn-default " data-target="#layerpop" data-toggle="modal" value="새 보드 생성하기..."></button>
-	</div>
-	</div>
-	</tr>
-	<tr>&nbsp;</tr>
-	<tr>&nbsp;</tr>
-	<tr>&nbsp;</tr>
-	<tr>&nbsp;</tr>
-	<tr>&nbsp;</tr>
-	<tr>&nbsp;</tr>
-	<tr>
-	<div class=" row col-md-offset-1" id="teamboard">
-	<h3 style="color:#5bc0de"> <span class="label"><img src="../images/team.png"></span>자바팀 </h3>
-	<div class="col-sm-2 text-center" id="board">
-	<input type="button" style="WIDTH: 150pt; HEIGHT: 100pt" class="btn btn-default" data-target="#layerpop" data-toggle="modal" value="새 보드 생성하기..."></button>
-	</div>
-	</div>
-	</tr>
+<% } %>
 </table>
  <!--  모달영역 -->
 <div class="modal fade" id="layerpop" >
@@ -135,46 +188,7 @@
     </div>
   </div>
 </div>
- <script type="text/javascript">
- var boardList = new Array(); 
-//  var color2 = new Array(); 
- var color2 ; 
-//  var booktitle = new Array(); 
- var booktitle ; 
- boardList = "<%=boardList%>";
- color2 = "<%=color2%>";
- booktitle = "<%=booktitle%>";
- var color4 = color2.substring(1,color2.length-1);
- var color3 = color4.split(',');
- var booktitle3 = booktitle.substring(1,booktitle.length-1);
- var booktitle2 = booktitle3.split(',');
- var board_upd = "<%=board_upd%>"
- var board_upd2 = board_upd.substring(1,board_upd.length-1).split(',');
- var board_no = "<%=board_no%>"
- var board_no2 = board_no.substring(1,board_no.length-1).split(',');
- 	alert(board_upd2);
- 	alert(board_no2);
-//      alert(boardList);
-//      alert(color2);
-     alert(booktitle2);
-	      boardSelect();
-	     function boardSelect(){
-		  if(boardList!=null && booktitle2!=null){			  
-		  for(var i=0;i<color3.length;i++){
-			  var $div = $("<div class='col-sm-2'><input type='button' style='WIDTH: 150pt; HEIGHT: 100pt' id='"+board_no2[i]+"' class='btn "+color3[i]+" ' value="+booktitle2[i]+" onClick='boardmove()'></div>");
-			  $('#myboard').append($div);
-// 		 document.getElementById('parah').innerHTML+="<input type='button' class='btn "+color3[i]+" btn-lg ' value="+booktitle2[i]+" onClick='boardmove()'>"
-			if(board_upd2[i]==1){
-			  var $div2 = $("<div class='col-sm-2'><input type='button' style='WIDTH: 150pt; HEIGHT: 100pt' id='"+board_no2[i]+"' class='btn "+color3[i]+" ' value="+booktitle2[i]+" onClick='boardupd(id)'></div>");
-			  $('#updateboard').append($div2);
-				
-			}
-		  }
-		  }
-	  }
- </script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-   <script src="../js/bootstrap.min.js"></script>
+
 
 </body>
 </html>

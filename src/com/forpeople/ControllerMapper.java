@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import com.board.BoardController;
 import com.boardlist.BoardListController;
+import com.calendar.CalendarController;
 import com.login.LoginController;
 import com.note.NoteController;
 import com.team.TeamController;
@@ -12,16 +13,18 @@ import com.team.TeamController;
 
 public class ControllerMapper {
 	static Logger logger = Logger.getLogger(ControllerMapper.class);
-	public static Controller getController(String command) {
-		Controller  controller = null;
-		String commands[] = command.split("/");
-		
-		for(String str:commands) {
+	static String crud = null;
+	public static Controller getController(String command, String crud) {
+		ControllerMapper.crud = crud;//최상위 컨트롤러(Servlet_people)로 부터 받은 crud를 static변수에 저장
+		Controller  controller = null; //인터페이스 선언
+		String commands[] = command.split("/");//command에 담긴값 => category/xxxx.for
+		for(String str:commands) {//단위테스트용
 			logger.info("commands:"+str);
 		}
+		//기능분기
 		if(commands.length==2) {
-			String category = commands[0];
-			String crud = commands[1];
+			String category = commands[0];//login|team|board|calendar....
+			crud = commands[1];//sel|ins|del|upd
 			//login 폴더요청
 			if("login".equals(category)) {
 				controller = new LoginController();
@@ -46,6 +49,9 @@ public class ControllerMapper {
 				controller = new NoteController();
 			}
 			
+			else if("calendar".equals(category)){
+				controller = new CalendarController(category, crud);
+			}
 		}
 		return controller;
 	}

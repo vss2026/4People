@@ -2,15 +2,15 @@ package com.vo;
 
 import java.util.List;
 
-public class boardVO {
+public class BoardVO {
 	 private String board_no      ="";      
 	 private String team_code     ="";    
 	 private String board_title   ="";
 	 private String board_update  ="";
 	 private String board_color   ="";
 	 private String mem_id        ="";
-	 private List<boardVO> board_cursor =null;
-	 private List<boardVO> team_cursor =null;
+	 private List<BoardVO> board_cursor =null;
+	 private List<BoardVO> team_cursor =null;
 	
 	public String getTeam_code() {
 		return team_code;
@@ -48,16 +48,16 @@ public class boardVO {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
-	public List<boardVO> getBoard_cursor() {
+	public List<BoardVO> getBoard_cursor() {
 		return board_cursor;
 	}
-	public void setBoard_cursor(List<boardVO> board_cursor) {
+	public void setBoard_cursor(List<BoardVO> board_cursor) {
 		this.board_cursor = board_cursor;
 	}
-	public List<boardVO> getTeam_cursor() {
+	public List<BoardVO> getTeam_cursor() {
 		return team_cursor;
 	}
-	public void setTeam_cursor(List<boardVO> team_cursor) {
+	public void setTeam_cursor(List<BoardVO> team_cursor) {
 		this.team_cursor = team_cursor;
 	}    
 }

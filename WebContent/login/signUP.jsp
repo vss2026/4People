@@ -83,7 +83,7 @@
                         <label for="InputEmail">이메일 주소(ID)</label><br>
                         <input type="email" style='width:250px;' class="form-control" id="InputEmail" name="mem_id1" placeholder="이메일 주소를 입력해주세요">&nbsp;@&nbsp;
                     	<!--  -->
-                    	
+             <div class='input-group'>      	
             <button class="btn btn-default dropdown-toggle form-control" style='wdith:250px;'   type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               	이메일주소(필수사항)	
               <span class="caret"></span>
@@ -94,7 +94,8 @@
               <li><a href="#"><span style='font-size:16px;'>daum.net</span></a></li>
               <li><a href="#"><span style='font-size:16px;'>yahoo.co.kr</span></a></li>
             </ul>
-                    	<!--  -->
+            </div> 
+    
                     </div>
                     </div><br>
                     <div class="form-group">

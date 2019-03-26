@@ -25,12 +25,13 @@ public class BoardController implements Controller {
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String path=null;
 		crud = req.getParameter("crud");
+		String mem_id = req.getParameter("mem_id");
 		Map<String,Object> pMap = new HashMap<String,Object>();
 		HashMapBinder binder = new HashMapBinder(req);
 		binder.bind(pMap);
 		if("ins".equals(crud)) {
 			Bo_logic.BoardIns(pMap);
-			path ="redirect:./board.for?crud=sel";
+			path ="redirect:./board.for?crud=sel&mem_id="+mem_id;
 		}
 		else if("sel".equals(crud)){
 			logger.info(pMap.size());
@@ -45,8 +46,9 @@ public class BoardController implements Controller {
 			
 		}
 		else if("upd".equals(crud)) {
+			logger.info("upd호출"+pMap.get("board_no"));
 			Bo_logic.BoardUpd(pMap);
-			path ="redirect:./board.for?crud=sel";
+			path ="redirect:./board.for?crud=sel&mem_id="+mem_id;
 		}
 		return path;
 	}

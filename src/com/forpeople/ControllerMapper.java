@@ -3,7 +3,9 @@ package com.forpeople;
 import org.apache.log4j.Logger;
 
 import com.board.BoardController;
+import com.boardlist.BoardListController;
 import com.login.LoginController;
+import com.note.NoteController;
 import com.team.TeamController;
 
 
@@ -30,6 +32,18 @@ public class ControllerMapper {
 			}
 			else if("board".equals(category)) {
 				controller = new BoardController();
+			}
+			else if("boardList".equals(category)) {
+				controller = new BoardListController();
+			}
+			
+			
+			else if("board".equals(category)) {
+				controller = new BoardController();
+			}
+			
+			else if("note".equals(category)) {
+				controller = new NoteController();
 			}
 			
 		}

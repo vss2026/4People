@@ -86,7 +86,7 @@ while(b_itr.hasNext()){
 	      alert("title: "+temp);
 	      alert("color: "+color);
 	      alert("<%=mem_id%>");
-	      alert("<%=team_code%>");
+	      alert(team_code);
 // 		  document.getElementById('parah').innerHTML+="<input type='button' class='btn "+color+" btn-lg btn-block' value="+temp+">"
 		  location.href="./board.for?crud=ins&boardtitle="+temp+"&color="+color+"&mem_id=<%=mem_id%>&team_code="+team_code;
 		}

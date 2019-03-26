@@ -29,11 +29,19 @@ public class BoardListController implements Controller {
 		binder.bind(pMap);
 		List<Map<String,Object>> b_boardList =null;
 		if("ins".equals(crud)) {
+			logger.info("ins호출");
 			Bdlist_logic.BdlistIns(pMap);
 //			path ="redirect:./boardListfor?crud=sel&board_no="+board_no;
-			path ="redirect:./boardList.jsp";
+			path ="redirect:./boardList.for?crud=sel2&board_no="+board_no;
+		}
+		else if("ins2".equals(crud)) {
+			logger.info("ins2호출");
+			Bdlist_logic.cardIns(pMap);
+			path ="redirect:./boardList.for?crud=sel2&board_no="+board_no;
 		}
 		else if("sel2".equals(crud)) {
+			logger.info("sel호출");
+			logger.info(board_no);
 			b_boardList =Bdlist_logic.BdlistSel(pMap);
 			req.setAttribute("b_boardList", b_boardList);
 			req.setAttribute("board_no", board_no);

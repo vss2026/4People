@@ -15,10 +15,14 @@ public class BoardListLogic {
 		Bdlist_dao.BdlistIns(pMap);
 	}
 	public List<Map<String,Object>> BdlistSel(Map<String, Object> pMap) {
+		logger.info("logic호출");
 		List<Map<String,Object>> b_boardList = null;
 		b_boardList = Bdlist_dao.BdlistSel(pMap);
 		
 		return b_boardList;
+	}
+	public void cardIns(Map<String, Object> pMap) {
+		Bdlist_dao.cardIns(pMap);
 	}
 
 }

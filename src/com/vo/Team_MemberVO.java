@@ -1,6 +1,6 @@
 package com.vo;
 
-public class team_memberVO {
+public class Team_MemberVO {
 	private String team_code =null;
 	private String mem_id = null;
 	public String getTeam_code() {

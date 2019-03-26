@@ -32,19 +32,36 @@ public class BoardListDao {
 		}
 	}
 	public List<Map<String,Object>> BdlistSel(Map<String, Object> pMap) {
-		List<Map<String,Object>> b_boardList = null;
+		List<Map<String,Object>> b_boardList = new ArrayList<Map<String,Object>>();
 		try {
 			String resource = "com/mybatis/Configuration.xml";
 			Reader reader =null;
 			reader = Resources.getResourceAsReader(resource);
 			sqlMap = new SqlSessionFactoryBuilder().build(reader);
 			session = sqlMap.openSession(); 
-			b_boardList=session.selectList("BoardListSel", pMap);
+			session.selectList("BoardListSel", pMap);
+			b_boardList.add(pMap);
+			logger.info(b_boardList.size());
+			logger.info(b_boardList.get(0).get("r_team_code"));
 			logger.info("b_boardList"+b_boardList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return b_boardList;
+	}
+	public void cardIns(Map<String, Object> pMap) {
+		try {
+			String resource = "com/mybatis/Configuration.xml";
+			Reader reader =null;
+			reader = Resources.getResourceAsReader(resource);
+			sqlMap = new SqlSessionFactoryBuilder().build(reader);
+			session = sqlMap.openSession(); 
+			session.insert("CardIns", pMap);
+			session.commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

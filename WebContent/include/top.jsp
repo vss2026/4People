@@ -60,7 +60,7 @@ a, a:hover, a:focus {
 ----------------------------------------------------- */
 .es_wrapper {
     display: block;
-    margin-bottom:80px;
+    margin-bottom:60px;
 }
 .es_overlay {
     display: none;
@@ -167,11 +167,11 @@ a.article, a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
 }
-.navbar-nav.navbar-center {
-    position: absolute;
-    left: 50%;
-    transform: translatex(-50%);
-}
+/* .navbar-nav.navbar-center { */
+/*     position: absolute; */
+/*     left: 50%; */
+/*     transform: translatex(-50%); */
+/* } */
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -260,9 +260,17 @@ a.article, a.article:hover {
     <!-- 상단 -->
 <nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(51, 181, 229);" >
   <div class="container-fluid">
+   <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNav">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="navbar-collapse collapse">
+    <div class="navbar-collapse collapse" id='topNav'>
       <!-- 왼쪽 -->
       <ul class="nav navbar-nav navbar-left">
         <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px; background:rgb(51, 181, 229);">
@@ -272,9 +280,9 @@ a.article, a.article:hover {
       </ul>
       
       <!-- 가운데 -->
-      <ul class="nav navbar-nav navbar-center">
-      <li><a href="#" style="font-size:1.5em;  color: white; ">4People</a></li>
-      </ul>
+<!--       <ul class="nav navbar-nav navbar-center"> -->
+      
+<!--       </ul> -->
       <!-- 오른쪽 -->
       <ul class="nav navbar-nav navbar-right">
       <li style="font-size:1.5em;  color: white; margin-top:15px"><%=name %></li>
@@ -287,11 +295,11 @@ a.article, a.article:hover {
               <b class="caret"></b></a>
               <ul class="dropdown-menu">
               
-                <li ><a href="#">프로필</a></li>
-                <li><a href="#">쪽지함</a></li>
-                <li><a href="#">설정</a></li>
+                <li ><a href="#" style='background-color:white;'>프로필</a></li>
+                <li><a href="../note/note.for?command=myBoard" style='background-color:white;'>쪽지함</a></li>
+                <li><a href="#" style='background-color:white;'>설정</a></li>
                 <li class="divider"></li>
-                <li><a href="#">로그아웃</a></li>
+                <li><a href="#" style='background-color:white;'>로그아웃</a></li>
               </ul>
        </li>       
       <!--  -->
@@ -300,6 +308,7 @@ a.article, a.article:hover {
         </ul>
       <form class="navbar-form navbar-right" role="search">
       
+         <a href="#" style="font-size:1.5em; margin-right:350px;  color: white; ">4People</a>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" style="margin-top:5px;" >
         </div>
@@ -309,7 +318,7 @@ a.article, a.article:hover {
           <i class="fas fa-bell fa-fw"></i>
           <span class="badge badge-danger">9+</span>
         </a>
-        <a class="btn btn-default" href="#" id="messagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="btn btn-default" href="../note/note.for?command=myBoard" id="messagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-envelope fa-fw"></i>
           <span class="badge badge-danger">7</span>
         </a>

@@ -3,6 +3,7 @@ package com.forpeople;
 import org.apache.log4j.Logger;
 
 import com.login.LoginController;
+import com.note.NoteController;
 import com.team.TeamController;
 
 
@@ -26,6 +27,9 @@ public class ControllerMapper {
 			//team 폴더 요청
 			else if("team".equals(category)) {
 				controller = new TeamController();
+			}
+			else if("note".equals(category)) {
+				controller = new NoteController();
 			}
 			
 		}

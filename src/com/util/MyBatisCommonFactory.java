@@ -24,7 +24,7 @@ public class MyBatisCommonFactory {
 
 	private static void init() {
 		try {
-			String resource = "com/mybatis/MapperConfig.xml";
+			String resource = "com/mybatis/Configuration.xml";
 			Reader reader = Resources.getResourceAsReader(resource);
 			if(sqlSessionFactory==null) {
 				sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);//DB커넥션 정보가 써있는 xml파일을 읽어옴(xml문서에있는 <environments>값을 뒤에 추가가능, 여러가지 DB커넥션 정보를 xml문서에 담을 수 있음)

@@ -19,6 +19,6 @@
 		<mapper resource="com/mybatis/mapper/board.xml" />
 		<mapper resource="com/mybatis/mapper/note.xml" />
 		<mapper resource="com/mybatis/mapper/meet.xml"/>
-	
+		<mapper resource="com/mybatis/mapper/include.xml" />
 	</mappers>
 </configuration> 

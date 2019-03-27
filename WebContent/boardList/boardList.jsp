@@ -143,6 +143,62 @@
 		
 
 	}
+	function cardOpen(){
+		var param = "crud=sel"
+			$('#cardmodal').empty();
+			$.ajax({
+					type:"POST"
+				,url:"../card/card.for"
+					,data:param
+						   ,dataType:"html"
+						   ,success:function(result){
+						    $('#cardmodal').append(result);
+// // 							   $('#myModal').modal()  
+// 							   $('#cardmodal').modal('show');
+						   }
+			,error:function(jqXHR, exception){
+				  if (jqXHR.status === 0) {
+			            alert('Not connect.\n Verify Network.');
+			        }
+			        else if (jqXHR.status == 400) {
+			            alert('Server understood the request, but request content was invalid. [400]');
+			        }
+			        else if (jqXHR.status == 401) {
+			            alert('Unauthorized access. [401]');
+			        }
+			        else if (jqXHR.status == 403) {
+			            alert('Forbidden resource can not be accessed. [403]');
+			        }
+			        else if (jqXHR.status == 404) {
+			            alert('Requested page not found. [404]');
+			        }
+			        else if (jqXHR.status == 500) {
+			            alert('Internal server error. [500]');
+			        }
+			        else if (jqXHR.status == 503) {
+			            alert('Service unavailable. [503]');
+			        }
+			        else if (exception === 'parsererror') {
+			            alert('Requested JSON parse failed. [Failed]');
+			        }
+			        else if (exception === 'timeout') {
+			            alert('Time out error. [Timeout]');
+			        }
+			        else if (exception === 'abort') {
+			            alert('Ajax request aborted. [Aborted]');
+			        }
+			        else {
+			            alert('Uncaught Error.n' + jqXHR.responseText);
+			        }
+
+
+			  }
+			});
+			
+	}
+			function labelAdd(){
+				document.getElementById("#card_label").innerHTML+="<input type='button' class='btn btn-default ' value='gg'>";
+			}
 	
 </script>
 </head>
@@ -172,7 +228,7 @@
    	<%for(int j=0;j<C_BLIST_NO.size();j++){
    	  if(C_BLIST_NO.get(j).equals(BLIST_NO.get(i))){
    	   %>
-   	<input  id=<%=CARD_CODE.get(j) %> type="button" class="btn btn-default btn-block" value=<%=CARD_NAME.get(j) %>>
+   	<input  id=<%=CARD_CODE.get(j) %> type="button" class="btn btn-default btn-block" value=<%=CARD_NAME.get(j) %> data-toggle="modal" data-target="#cardmodal" onClick="cardOpen()">
    	<%}} %>
   </table>
   <div class="panel-heading"><a id="gg" href="javascript:cardAdd(<%=BLIST_NO.get(i) %>)" >+ 새 카드 추가하기</a></div>
@@ -196,6 +252,15 @@
 </div>
     </div>
 <!--=====================리스트 끝 ================================ -->
+<!--  ======================= 모달 ============================= -->
+<div class="modal fade" id="cardmodal" tabindex="-1" role="dialog" aria-labelledby="cardmodal" aria-hidden="true" >
+ 		하하하ㅏ
+</div>
+<!--  ======================= 모달 ============================= -->
+
+
+
+
 
 </body>
 </html>

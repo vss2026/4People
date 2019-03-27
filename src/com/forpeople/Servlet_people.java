@@ -15,6 +15,7 @@ public class Servlet_people extends HttpServlet {
 	Logger logger= Logger.getLogger(Servlet_people.class);
 	public void doService(HttpServletRequest req,HttpServletResponse res) throws ServletException,IOException{
 		//요청 URL 분기
+		logger.info(req.getRequestURI());
 		String requestURI = req.getRequestURI(); //4People/category/xxxx.for
 		String contextPath = req.getContextPath(); //4People
 		String command = requestURI.substring(contextPath.length()+1);//category/xxxx.for

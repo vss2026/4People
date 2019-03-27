@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.board.BoardController;
 import com.boardlist.BoardListController;
 import com.calendar.CalendarController;
+import com.card.CardController;
 import com.login.LoginController;
 import com.note.NoteController;
 import com.team.TeamController;
@@ -52,6 +53,10 @@ public class ControllerMapper {
 			else if("calendar".equals(category)){
 				controller = new CalendarController(category, crud);
 			}
+			else if("card".equals(category)) {
+				controller = new CardController();
+			}
+		
 		}
 		return controller;
 	}

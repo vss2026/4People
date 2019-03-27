@@ -20,7 +20,7 @@ public class CardController implements Controller {
 		String mem_id = req.getParameter("mem_id");
 		Map<String,Object> pMap = new HashMap<String,Object>();
 		HashMapBinder binder = new HashMapBinder(req);
-		binder.bind(pMap);
+		binder.ajaxBind(pMap);
 		logger.info("cardcontroller출");
 		if("sel".equals(crud)) {
 			logger.info("sel");

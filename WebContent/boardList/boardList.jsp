@@ -81,6 +81,25 @@
     margin-bottom:5px;
 }
 
+ .modal.modal-center {
+        text-align: center;
+}
+ 
+@media screen and (min-width: 768px) { 
+        .modal.modal-center:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                height: 100%;
+        }
+}
+ 
+.modal-dialogg {
+          display: inline-block;  
+        text-align: left;
+        vertical-align: middle;
+}
+
 /* Decorations */
 /* .col-sm-2 { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; } */
 /* .col-sm-2:nth-child(3n+1) { background: #c69; } */
@@ -91,6 +110,8 @@
 <%-- 	alert("<%=BLISTMap%>"); --%>
 <%-- 	alert("<%=CARDLISTMAP%>"); --%>
 <%-- 	alert("<%=CARD_CODE.size()%>"); --%>
+var color ="btn-default";
+var temp = new Array();
 	function cardAdd(id){
 // 		alert(id);
 		document.getElementById(id+'tt').innerHTML+="<input type='text' id='"+id+"textval'>";
@@ -143,7 +164,7 @@
 		
 
 	}
-	function cardOpen(){
+	function cardOpen(id){
 		var param = "crud=sel"
 			$('#cardmodal').empty();
 			$.ajax({
@@ -197,7 +218,30 @@
 			
 	}
 			function labelAdd(){
-				document.getElementById("#card_label").innerHTML+="<input type='button' class='btn btn-default ' value='gg'>";
+				document.getElementById("card_label").innerHTML+="<input type='button' class='btn btn-default ' value='gg'>";
+			}
+			 function addInput() {
+			      temp=document.getElementById("label_text").value;
+//		 		  document.getElementById('parah').innerHTML+="<input type='button' class='btn "+color+" btn-lg btn-block' value="+temp+">"
+				  location.href="../card/card.for?crud=ins&label_content="+temp+"&label_color="+color+"&mem_id=<%=mem_id%>&team_code=<%=t_team_code%>";
+				}
+			function defaultt(){
+				color ="btn-default";
+			}	 
+			function primary(){
+				color ="btn-primary";
+			}	 
+			function success(){
+				color ="btn-success";
+			}	 
+			function info(){
+				color ="btn-info";
+			}	 
+			function warning(){
+				color ="btn-warning";
+			}	 
+			function danger(){
+				color ="btn-danger";
 			}
 	
 </script>
@@ -228,7 +272,7 @@
    	<%for(int j=0;j<C_BLIST_NO.size();j++){
    	  if(C_BLIST_NO.get(j).equals(BLIST_NO.get(i))){
    	   %>
-   	<input  id=<%=CARD_CODE.get(j) %> type="button" class="btn btn-default btn-block" value=<%=CARD_NAME.get(j) %> data-toggle="modal" data-target="#cardmodal" onClick="cardOpen()">
+   	<input  id=<%=CARD_CODE.get(j) %> type="button" class="btn btn-default btn-block" value=<%=CARD_NAME.get(j) %> data-toggle="modal" data-target="#cardmodal" onClick="cardOpen(id)">
    	<%}} %>
   </table>
   <div class="panel-heading"><a id="gg" href="javascript:cardAdd(<%=BLIST_NO.get(i) %>)" >+ 새 카드 추가하기</a></div>
@@ -254,13 +298,35 @@
 <!--=====================리스트 끝 ================================ -->
 <!--  ======================= 모달 ============================= -->
 <div class="modal fade" id="cardmodal" tabindex="-1" role="dialog" aria-labelledby="cardmodal" aria-hidden="true" >
- 		하하하ㅏ
 </div>
 <!--  ======================= 모달 ============================= -->
 
+<!-- 라벨 모달  -->
+<div id="label_modal" class="modal modal-center fade" role="dialog">
+  <div class="modal-dialogg">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">라벨 내용</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="label_text">
+      </div>
+      <div class="modal-footer">
+      <input type="button" class="btn btn-default" onClick="defaultt()">
+      <input type="button" class="btn btn-success" onClick="success()">
+      <input type="button" class="btn btn-info" onClick="info()">
+      <input type="button" class="btn btn-primary" onClick="primary()">
+      <input type="button" class="btn btn-warning" onClick="warning()">
+      <input type="button" class="btn btn-danger" onClick="danger()">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onClick="addInput()">생성</button>
+      </div>
+    </div>
 
-
-
+  </div>
+</div>
+<!-- 라벨 모달  -->
 </body>
 </html>

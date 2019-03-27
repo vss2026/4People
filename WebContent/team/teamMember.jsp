@@ -4,6 +4,11 @@
 <%
 String pm1=(String)request.getAttribute("pm");
 List<Map<String,Object>> memberList =(List<Map<String,Object>>)request.getAttribute("team");
+String teamLeader = (String)request.getAttribute("TEAM_LEADER");
+String teamName = (String)request.getAttribute("TEAM_NAME");
+String teamCode = (String)session.getAttribute("team_code");
+
+
 String mem_name=null;
 String mem_id=null;
 String p_role = null;
@@ -15,11 +20,12 @@ String pm = null;
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-
+("에러페이지입니다")%>
 </style>
 <title>Insert title here</title>
 <jsp:include page="./viewTeam.jsp" flush="false">
-		<jsp:param value="" name="top" />
+		<jsp:param value='<%=teamLeader%>' name="teamLeader" />
+		<jsp:param value='<%=java.net.URLEncoder.encode(teamName)%>' name="teamName" />
 	</jsp:include>
 <script type="text/javascript">
 	$(window).on("load",function(){
@@ -161,7 +167,7 @@ String pm = null;
 
 	<ul id="options" class="nav nav-tabs nav-justified" >
 <!-- 	<li> 클릭햇을떄 눌러져잇는것처럼 보이는 속성 class="active" -->
-  <li role="presentation"><a style=" font-weight:700;" href="./team.for?command=board">보드</a></li>
+  <li role="presentation"><a style=" font-weight:700;" href="./team.for?command=board&team_code=<%=teamCode %>">보드</a></li>
   <li role="presentation" class="active"><a  style=" font-weight:700;" href="./team.for?command=member">회원</a></li>
   <li role="presentation"><a style=" font-weight:700;" href="#">설정</a></li>
   </ul>

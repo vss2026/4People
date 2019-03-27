@@ -6,6 +6,7 @@ import com.board.BoardController;
 import com.boardlist.BoardListController;
 import com.calendar.CalendarController;
 import com.card.CardController;
+import com.include.IncludeController;
 import com.login.LoginController;
 import com.note.NoteController;
 import com.team.TeamController;
@@ -57,6 +58,19 @@ public class ControllerMapper {
 				controller = new CardController();
 			}
 		
+			else if("include".equals(category)) {
+				controller = new IncludeController(category, crud);
+			}
+		}
+		else if(commands.length==3) {
+			String category = commands[1];
+			crud = commands[2];
+			if("include".equals(category)) {
+				logger.info("crud==="+crud);
+				logger.info("categort="+category);
+				controller = new IncludeController(category, crud);
+				
+			}
 		}
 		return controller;
 	}

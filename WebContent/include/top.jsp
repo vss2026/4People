@@ -11,6 +11,68 @@
 <meta charset="UTF-8">
  <%@ include file="../common/common.jsp" %>
 <title>Insert title here</title>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#sidebarToggle').click(function(){
+		$.ajax({
+			type:"POST"
+		   ,url:"include/include.for?command=sidebarTeam"
+		   ,dataType:"json"
+		   ,success:function(data){
+			   $('#sideTeamList').empty();
+			   $.each(data , function( key,  val){
+				  	var teamName = val.TEAM_NAME;
+				  	var code = val.TEAM_CODE;
+				  	var append = "<a href='../team/team.for?command=board&team_code="+code+"'>"
+				  				  +teamName+"</a>";
+				  	$('#sideTeamList').append(append);
+			   });
+		   }
+		  ,error:function(jqXHR, exception){
+			  if (jqXHR.status === 0) {
+		            alert('Not connect.\n Verify Network.');
+		        }
+		        else if (jqXHR.status == 400) {
+		            alert('Server understood the request, but request content was invalid. [400]');
+		        }
+		        else if (jqXHR.status == 401) {
+		            alert('Unauthorized access. [401]');
+		        }
+		        else if (jqXHR.status == 403) {
+		            alert('Forbidden resource can not be accessed. [403]');
+		        }
+		        else if (jqXHR.status == 404) {
+		            alert('Requested page not found. [404]');
+		        }
+		        else if (jqXHR.status == 500) {
+		            alert('Internal server error. [500]');
+		        }
+		        else if (jqXHR.status == 503) {
+		            alert('Service unavailable. [503]');
+		        }
+		        else if (exception === 'parsererror') {
+		        	$('#sideTeamList').empty();
+		        	var append = "<a href='#'>참여중인 팀이없습니다.</a>";
+		        	$('#sideTeamList').append(append);
+		        }
+		        else if (exception === 'timeout') {
+		            alert('Time out error. [Timeout]');
+		        }
+		        else if (exception === 'abort') {
+		            alert('Ajax request aborted. [Aborted]');
+		        }
+		        else {
+		            alert('Uncaught Error.n' + jqXHR.responseText);
+		        }
+
+
+		  }
+});
+	});
+	
+});
+	
+</script>
 <style>
   
   /*
@@ -237,10 +299,8 @@ a.article, a.article:hover {
             <button class="es_dropdown-btn">참여중인팀 
    			 <i class="fa fa-caret-down"></i>
   			</button>
-  			<div class="es_dropdown-container">
-    			<a href="#">Link 1</a>
-    			<a href="#">Link 2</a>
-    			<a href="#">Link 3</a>
+  			<div class="es_dropdown-container" id="sideTeamList">
+    			
   			</div>
             </li>
             

@@ -50,9 +50,11 @@ public class TeamDao {
 			sqlMap = new SqlSessionFactoryBuilder().build(reader);
 			session = sqlMap.openSession();
 			memberList = session.selectList("getMember",pMap);
+			Map<String,Object> rMap = session.selectOne("teamInfo",pMap);
+			memberList.add(rMap);
 			String sql = session.getConfiguration().getMappedStatement("getMember").getBoundSql(pMap).getSql();
 	        List<ParameterMapping> parameterMappings = session.getConfiguration().getMappedStatement("getMember").getBoundSql(pMap).getParameterMappings();
-	        
+	        	
 	        for (ParameterMapping parameterMapping : parameterMappings) {
 	            String param = (String) pMap.get(parameterMapping.getProperty());
 	            sql = sql.replaceFirst("\\?", "'" + param + "'");

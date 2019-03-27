@@ -1,6 +1,7 @@
 package com.team;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class TeamController implements Controller {
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String path=null;
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession();
 		command = req.getParameter("command");
 		
 		if(command!=null) {
@@ -30,11 +31,22 @@ public class TeamController implements Controller {
 				HashMapBinder binder = new HashMapBinder(req);
 				binder.bind(pMap);
 				logger.info("TeamController board 호출");
-				pMap.put("mem_id",session.getAttribute("mem_id"));
-	
-					
-				
+				String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
+				pMap.put("mem_id",mem_id);
 				List<Map<String,Object>> boardList=t_logic.getBoards(pMap);
+				String team_code = req.getParameter("team_code");
+				if(team_code!=null) {
+					if(session.getAttribute("team_code")==null) {
+						session.setAttribute("team_code",team_code);
+					}
+					else {
+						session.removeAttribute("team_code");
+						session.setAttribute("team_code",team_code);
+					}
+				}
+				for(Object key:pMap.keySet()) {
+					logger.info("key=="+key+" value=="+pMap.get(key));
+				}
 				logger.info("boardList.size"+boardList.size());
 				req.setAttribute("team",boardList);
 				req.setAttribute("gubun","board");
@@ -52,7 +64,8 @@ public class TeamController implements Controller {
 				Map<String,Object> pMap = new HashMap<String,Object>();
 				HashMapBinder binder = new HashMapBinder(req);
 				binder.ajaxBind(pMap);
-				pMap.put("p_code",String.valueOf(1));
+				String team_code = String.valueOf(session.getAttribute("team_code"));
+				pMap.put("team_code",team_code);
 				for(String key:pMap.keySet()) {
 					logger.info(key+" pMap:"+pMap.get(key));
 					//회원검색을 햇을때 파라미터값으로 mem_name이 넘어온다 그떄 url주소를  ./teamMemberResult.jsp 로 설정해줌
@@ -70,14 +83,26 @@ public class TeamController implements Controller {
 				}
 				List<Map<String,Object>> memberList=t_logic.getMember(pMap);
 				logger.info("boardList.size"+memberList.size());
-				req.setAttribute("team",memberList);
 				
-				for(Map<String,Object> rMap:memberList) {
+				for(int i=0; i<memberList.size(); i++) {
+					Map<String,Object> rMap = memberList.get(i);
 					for(String key:rMap.keySet()) {
-						logger.info(key+" rMap:"+rMap.get(key));
+						if(key.equals("TEAM_NAME")) {
+							req.setAttribute("TEAM_NAME",rMap.get(key));
+							logger.info("TEAM_NAME="+rMap.get(key));
+							
+						}
+						else if(key.equals("TEAM_LEADER")) {
+							req.setAttribute("TEAM_LEADER",rMap.get(key));
+							logger.info("TEAM_LEADER="+rMap.get(key));
+						}
 						
 					}
+					if(rMap.containsKey("TEAM_NAME")||rMap.containsKey("TEAM_LEADER")) {
+						memberList.remove(i);
+					}
 				}
+				req.setAttribute("team",memberList);
 			}
 			//친구초대 검색시||친구초대시
 			else if("invite".equals(command)) {
@@ -85,7 +110,8 @@ public class TeamController implements Controller {
 				Map<String,Object> pMap = new HashMap<String,Object>();
 				HashMapBinder binder = new HashMapBinder(req);
 				binder.ajaxBind(pMap);
-				pMap.put("p_code",String.valueOf(1));
+				String team_code = String.valueOf(session.getAttribute("team_code"));
+				pMap.put("team_code",team_code);
 				for(String key:pMap.keySet()) {
 					logger.info(key+" pMap:"+pMap.get(key));
 				}

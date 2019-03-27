@@ -413,6 +413,9 @@ $(document).ready(function () {
 	function red(){
 		color ="#FFA7A7";
 	}
+	function purple(){
+		color ="#A566FF";
+	}
 	
 	
 	//우편함 클릭시 
@@ -629,6 +632,7 @@ $(document).ready(function () {
             <input type="button" style="float:left; background-color:#B7F0B1;" class='btn' onClick="green()"/>
             <input type="button" style="float:left; background-color:#FFC19E;" class='btn' onClick="orange()"/>
             <input type="button" style="float:left; background-color:#FFA7A7;" class='btn' onClick="red()"/>
+            <input type="button" style="float:left; background-color:#A566FF;" class='btn' onClick="purple()"/>
             </div>
             <div id="success"></div>
             <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>

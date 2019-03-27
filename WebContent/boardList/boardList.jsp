@@ -91,6 +91,67 @@
 <%-- 	alert("<%=BLISTMap%>"); --%>
 <%-- 	alert("<%=CARDLISTMAP%>"); --%>
 <%-- 	alert("<%=CARD_CODE.size()%>"); --%>
+
+/* 은수 */
+  var card_code=''; 
+  var team_code = '<%=t_team_code%>';
+ 
+		function comment(){
+			var comment = $('#input_comment').val();
+			alert(comment);
+			var param = "comment="+comment+"&card_code="+card_code+"&team_code="+team_code;
+			$.ajax({
+				type:"POST"
+			   ,url:"../card/card.for?crud=commentIns"
+			   ,data:param
+			   ,dataType:"json"
+			   ,success:function(data){
+				   var comment_code =data;
+				   alert(comment_code);
+
+				   
+			   }
+			  ,error:function(jqXHR, exception){
+				  if (jqXHR.status === 0) {
+			            alert('Not connect.\n Verify Network.');
+			        }
+			        else if (jqXHR.status == 400) {
+			            alert('Server understood the request, but request content was invalid. [400]');
+			        }
+			        else if (jqXHR.status == 401) {
+			            alert('Unauthorized access. [401]');
+			        }
+			        else if (jqXHR.status == 403) {
+			            alert('Forbidden resource can not be accessed. [403]');
+			        }
+			        else if (jqXHR.status == 404) {
+			            alert('Requested page not found. [404]');
+			        }
+			        else if (jqXHR.status == 500) {
+			            alert('Internal server error. [500]');
+			        }
+			        else if (jqXHR.status == 503) {
+			            alert('Service unavailable. [503]');
+			        }
+			        else if (exception === 'parsererror') {
+			            alert('Requested JSON parse failed. [Failed]');
+			        }
+			        else if (exception === 'timeout') {
+			            alert('Time out error. [Timeout]');
+			        }
+			        else if (exception === 'abort') {
+			            alert('Ajax request aborted. [Aborted]');
+			        }
+			        else {
+			            alert('Uncaught Error.n' + jqXHR.responseText);
+			        }
+
+
+			  }
+	});
+		}
+/* 은수 */
+ 
 	function cardAdd(id){
 // 		alert(id);
 		document.getElementById(id+'tt').innerHTML+="<input type='text' id='"+id+"textval'>";
@@ -143,8 +204,11 @@
 		
 
 	}
-	function cardOpen(){
+	function cardOpen(id){
 		var param = "crud=sel"
+		//은수
+		card_code =id;  
+		//은수
 			$('#cardmodal').empty();
 			$.ajax({
 					type:"POST"
@@ -228,7 +292,7 @@
    	<%for(int j=0;j<C_BLIST_NO.size();j++){
    	  if(C_BLIST_NO.get(j).equals(BLIST_NO.get(i))){
    	   %>
-   	<input  id=<%=CARD_CODE.get(j) %> type="button" class="btn btn-default btn-block" value=<%=CARD_NAME.get(j) %> data-toggle="modal" data-target="#cardmodal" onClick="cardOpen()">
+   	<input  id=<%=CARD_CODE.get(j) %> type="button" class="btn btn-default btn-block" value=<%=CARD_NAME.get(j) %> data-toggle="modal" data-target="#cardmodal" onClick="cardOpen(id)">
    	<%}} %>
   </table>
   <div class="panel-heading"><a id="gg" href="javascript:cardAdd(<%=BLIST_NO.get(i) %>)" >+ 새 카드 추가하기</a></div>

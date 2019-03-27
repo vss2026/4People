@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<style>
+.modal-body{
+    overflow-y: auto;
+}
 </style>
  <div class="modal-dialog">
     <div class="modal-content" style="width:810px; height:800px;">
@@ -26,7 +31,7 @@
          <div id="card_description" style=" margin-bottom:50px;">
          <h3><img src="../images/description2.png">요약</h3>
           <div>
-         <input type="text" style="margin-left:50px; width:500px; height:150px">
+         <input type="text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " >
          </div>
          <div>
          <input type="button" style="margin-left:50px; margin-top:5px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장">
@@ -44,11 +49,21 @@
          <div id="card_hanmadi" style=" margin-bottom:50px;">
          <h3><img src="../images/hanmadi.png">한마디</h3>
          <div>
-         <input type="text" style="margin-left:50px; width:500px; height:150px">
+         <input type="text" id='input_comment' style="margin-left:50px; width:500px; height:75px;  border-radius: 8px 8px 8px 10px; border:0;">
          </div>
          <div>
-         <input type="button" style="margin-left:50px; margin-top:5px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장">
+         <input type="button"  style="margin-left:50px; margin-top:5px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장" onClick='comment()'>
          </div>
+         <!-- 은수 -->
+         <br><br><br>
+         <div id="comments" style='background-color: #D9D9D9;'>
+         	<img  width="30px" height="30px"  src="../images/comment.png">
+         		<label><span style='font-size:20px; font_weight:bold; margin:5px;'>김은수</span><span style='font-size:8px;'>2019-03-27&nbsp;&nbsp;수요일 &nbsp;&nbsp;18:41</span></label>
+         	<div>
+         		
+         	</div>	
+         </div>
+         <!-- 은수 -->
          </div>
         <!-- 한마디 div -->
          

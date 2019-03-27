@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.card">
+	<select id="commentIns" parameterType="map" statementType="CALLABLE">
+	{call proc_commentIns(#{comment,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{card_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{team_code,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{mem_id,mode=IN, jdbcType=VARCHAR, javaType=java.lang.String}
+						  ,#{r_card_code,mode=OUT, jdbcType=VARCHAR, javaType=java.lang.String})}
+	</select>
+</mapper>

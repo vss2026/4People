@@ -6,6 +6,7 @@ import com.board.BoardController;
 import com.boardlist.BoardListController;
 import com.calendar.CalendarController;
 import com.card.CardController;
+import com.chatting.ChatController;
 import com.include.IncludeController;
 import com.login.LoginController;
 import com.meetRoom.MeetRoomController;
@@ -64,6 +65,9 @@ public class ControllerMapper {
 		
 			else if("include".equals(category)) {
 				controller = new IncludeController(category, crud);
+			}
+			else if("chatting".equals(category)) {
+				controller = new ChatController();
 			}
 		}
 		else if(commands.length==3) {

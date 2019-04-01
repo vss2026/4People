@@ -64,6 +64,7 @@
 		
 %>
 <style type="text/css">
+
 .testimonial-group > .row {
   overflow-x: auto;
   white-space: nowrap;
@@ -81,6 +82,7 @@
     margin-bottom:5px;
 }
 
+
 /* Decorations */
 /* .col-sm-2 { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; } */
 /* .col-sm-2:nth-child(3n+1) { background: #c69; } */
@@ -95,6 +97,15 @@
 /* 은수 */
   var card_code=''; 
   var team_code = '<%=t_team_code%>';
+  
+  function commentDeletModal(){
+	  $ ( '#commentDeleteModal' ). modal({
+		    target : '#checkList' 
+		});
+		  
+	 $('#commentDeleteModal').modal('show');
+	 
+  }
  
 		function comment(){
 			var comment = $('#input_comment').val();
@@ -107,8 +118,33 @@
 			   ,dataType:"json"
 			   ,success:function(data){
 				   var comment_code =data;
-				   alert(comment_code);
+				   
+				   var today = new Date();
+				   var dd = today.getDate();
+				   var mm = today.getMonth()+1; //January is 0!
+				   var yyyy = today.getFullYear();
+				   var sigan = today.getHours()+":"+today.getMinutes();
+				   var week = new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일','일요일');
+				   var day = week[today.getDay()];
+				   if(dd<10) {
+				       dd='0'+dd
+				   } 
 
+				   if(mm<10) {
+				       mm='0'+mm
+				   } 
+				   today = yyyy+'-'+mm+'-'+dd;
+				   
+				   var mem_name ='<%=session.getAttribute("MEM_NAME")%>'
+				   alert(mem_name);
+				   var append = "<div class='es_comment' style='background-color: #D9D9D9;'>"
+				   				+"<img  width='30px' height='30px'  src='../images/comment.png'>"
+				   				+"<label><span style='font-size:20px; color:#4374D9; font_weight:bold; margin:5px;'>"+mem_name+"</span><span style='font-size:8px;'>"+today+"&nbsp;&nbsp;"+day+" &nbsp;&nbsp;"+sigan+"</span></label>"
+				   				+"<a href='javascript:commentDeletModal()' style='margin-left:300px;'> <img  width='15px' height='15px'  src='../images/commentDelete.png'></a>"
+				   				+"<div class='es_contant' style='padding-left:40px;'><span>"+comment+"</span></div></div></div>"
+					
+				   	$('#coment').append(append);			
+				   	$('#input_comment').val("");
 				   
 			   }
 			  ,error:function(jqXHR, exception){
@@ -322,7 +358,28 @@
 </div>
 <!--  ======================= 모달 ============================= -->
 
+<!-- 은수 -->
+<!-- ================commentDleteModal==================== -->
 
+<div class="modal fade"  id="commentDeleteModal" role="dialog" >
+    <div class="modal-dialog modal-sm" >
+      <div class="modal-content" style='position:fixed-center'>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">삭제</h4>
+        </div>
+        <div class="modal-body">
+          <p>댓글을 삭제하시겠습니까?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="deleteButton" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- =================commentDleteModal================= -->
+<!-- 은수 -->
 
 
 

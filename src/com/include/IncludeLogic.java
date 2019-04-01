@@ -5,15 +5,11 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.util.MyBatisCommonFactory;
 
-@Service
 public class IncludeLogic {
-	@Autowired
-	IncludeDao i_Dao =null;
+	IncludeDao i_Dao = new IncludeDao();
 	Logger logger = Logger.getLogger(IncludeLogic.class);
 	public List<Map<String, Object>> sideTeamList(Map<String, Object> pMap) {
 		logger.info("IncludeLogic호출");

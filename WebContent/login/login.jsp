@@ -30,7 +30,7 @@
     	}
     	function loginCall(){
     		$("#f_login").attr("method","POST");
-    		$("#f_login").attr("action","./login.for?command=login");
+    		$("#f_login").attr("action","./login");
     		$("#f_login").submit();		
     	}
       </script>

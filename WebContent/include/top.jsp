@@ -248,6 +248,9 @@ a.article, a.article:hover {
                 <a href="#">회의실</a>
             </li>
             <li>
+                <a href="../calendar/calendar.for?crud=sel">캘린더</a>
+            </li>
+            <li>
                 <a href="#">채팅</a>
             </li>
             <li>

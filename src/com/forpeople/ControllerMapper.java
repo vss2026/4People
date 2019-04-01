@@ -24,7 +24,8 @@ public class ControllerMapper {
 		//기능분기
 		if(commands.length==2) {
 			String category = commands[0];//login|team|board|calendar....
-			crud = commands[1];//sel|ins|del|upd
+			//crud = commands[1];//sel|ins|del|upd
+			logger.info("crud :"+crud);
 			//login 폴더요청
 			if("login".equals(category)) {
 				controller = new LoginController();

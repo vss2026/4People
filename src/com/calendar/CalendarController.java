@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.forpeople.Controller;
+import com.util.DateFormatter;
 import com.util.HashMapBinder;
 import com.vo.CalendarVO;
 
@@ -36,22 +37,30 @@ public class CalendarController implements Controller {
 			List<Map<String, Object>> calList = null;
 			calList = cal_logic.calList(calVO);
 			req.setAttribute("calList", calList);
-			path="forward:/"+category+"/calList.for?crud=sel";
+			path="forward:/"+category+"/calendar.jsp";
 		}
 		else if("ins".equals(crud)) {
 			logger.info("캘린더 입력 호출 성공");
 			int result = 0;//입력 성공 여부 저장
 			Map<String, Object> pMap = new HashMap<String, Object>();
+			DateFormatter dateformat = new DateFormatter();
 			HashMapBinder hmb = new HashMapBinder(req);
 			hmb.bind(pMap);
+			logger.info(pMap.get("cal_title"));
+			logger.info(pMap.get("cal_startdate"));
+			dateformat.calc_date(pMap);
+			logger.info(pMap.get("cal_title"));
+			logger.info(pMap.get("cal_startdate"));
+			req.setAttribute("cal_startdate", pMap.get("cal_startdate"));
+			req.setAttribute("cal_enddate", pMap.get("cal_enddate"));
 			result = cal_logic.calIns(pMap);
+			logger.info("result :"+result);
 			if(result==1) {
-				path="redirect:/"+category+"/calInsSuccess.jsp";
+				path="redirect:/4people/"+category+"/calList.for?crud=sel";
 			}
 			else if(result==0) {
 				path="redirect:/"+category+"/calInsFail.jsp";
 			}
-			
 		}
 		else if("upd".equals(crud)) {
 			logger.info("캘린더 수정 호출 성공");
@@ -61,7 +70,7 @@ public class CalendarController implements Controller {
 			hmb.bind(pMap);
 			result = cal_logic.calUpd(pMap);
 			if(result==1) {
-				path="redirect:/"+category+"/calUpdSuccess.jsp";
+				path="redirect:/4people/"+category+"/calUpdSuccess.jsp";
 			}
 			else if(result==0) {
 				path="redirect:/"+category+"/calUpdFail.jsp";

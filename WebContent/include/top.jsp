@@ -326,6 +326,10 @@ a.article, a.article:hover {
             </li>
             <li>
                 <a href="../chatting/chatMain.jsp">채팅</a>
+                <a href="../calendar/calendar.for?crud=sel">캘린더</a>
+            </li>
+            <li>
+                <a href="#">채팅</a>
             </li>
             <li>
                 <a href="#">내 보드</a>

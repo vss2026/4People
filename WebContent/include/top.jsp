@@ -22,7 +22,7 @@ $(document).ready(function () {
 	function count(){
 		$.ajax({
 			type:"POST"
-			,url:"include/include.for?command=messageCount"
+			,url:"include/messageCount"
 			,dataType:"json"
 			,success:function(data){
 // 				alert(data);
@@ -35,7 +35,7 @@ $(document).ready(function () {
 	$('#sidebarToggle').click(function(){
 		$.ajax({
 			type:"POST"
-		   ,url:"include/include.for?command=sidebarTeam"
+		   ,url:"include/sidebarTeam"
 		   ,dataType:"json"
 		   ,success:function(data){
 			   $('#sideTeamList').empty();

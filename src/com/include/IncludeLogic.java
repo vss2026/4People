@@ -16,5 +16,10 @@ public class IncludeLogic {
 		List<Map<String, Object>> sideTeamList = i_Dao.sideTeamList(pMap);
 		return sideTeamList;
 	}
+	public int messageCount(String mem_id) {
+		logger.info("IncludeLogic호출");
+		int result = i_Dao.messageCount(mem_id);
+		return result;
+	}
 
 }

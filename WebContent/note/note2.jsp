@@ -20,7 +20,7 @@
 <jsp:include page="../include/top.jsp" flush="false">
 		<jsp:param value="" name="top" />
 </jsp:include>
-<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/>
+<!-- <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" rel="stylesheet"/> -->
 <link href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" rel="stylesheet"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
@@ -28,9 +28,8 @@
 
 <title>Insert title here</title>
 <style type="text/css">
-.fixed-top-2 {
-    margin-top: 56px;
-}
+
+
 .es_message{
 		margin-bottom:20px;
 		background-color:#F6F6F6;
@@ -48,8 +47,8 @@ div#frame {
      padding-right: 35px; 
 }
 .note {
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
     box-shadow: 0 3px 6px rgba(0,0,0,.25);
     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
     -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
@@ -193,11 +192,16 @@ var note_id  = "";
 $(document).ready(function () {
 	var send_contents ="";
 	var receive_id ="";
-	
-	
-	
-	
-	
+	var tag = "<nav class='navbar navbar-default es_info-color' style='border:0; position:relative; margin-bottom:0; '>"
+			 +"<div class='container-fluid'><div class='navbar-header'><button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1'>"
+			 +"<span class='sr-only'>Toggle navigation</span><span class='icon-bar'></span><span class='icon-bar'></span><span class='icon-bar'></span></button></div>"
+			 +" <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'><ul class='nav navbar-nav'>"
+			 +"<li><a href='javascript:newNoteModal()''><i class='fas fa-plus-circle fa-2x'></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;새 메모</span></a></li>"
+			 +"<li><a href='javascript:messageModal()''><i class='fas fa-envelope-open fa-2x'></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;내 우편함</span></a></li>"
+			 +"<li><a href='javascript:sendModal()''><i class='fas fa-paper-plane fa-2x'></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;메모 보내기</span></a></li>"
+	  		 +"<li><a href='javascript:deleteModal()'><i class='fa fa-trash fa-2x' aria-hidden='true'></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;삭제</span></a></li></ul></div></div></nav>";
+	    
+	  $('#nav_top').append(tag);    
 	
 	//메모보내기 회원 검색 ajax
 	$('#receive_id').keyup(function (){
@@ -237,11 +241,16 @@ $(document).ready(function () {
 			$("#receive_id_ok").text(receive_name+'님에게...');
 			$('#send_contents_ok').val(send_contents);
 		    $('#sendModalOk').modal('show');  
+		    
 	        
 	}
 	//내용확인후 확인버튼 눌럿을떄
 	document.getElementById("sendButtonOk").onclick = function (){
 		var param = "mb_content="+send_contents+"&receive_id="+receive_id+"&note_code="+color;
+		var str = receive_id.split('[');
+		var str2 = str[1].split(']');
+		var mem_id = str2[0];
+		
 		$.ajax({
 			type:"POST"
 			,url:"./note.for?command=sendNote"
@@ -249,6 +258,12 @@ $(document).ready(function () {
 			,dataType:"html"
 			,success:function(data){
 				alert("전송성공");
+				var obj={
+						gubun : 'sendNote'
+					    ,id : mem_id
+				}
+				var json = JSON.stringify(obj);
+				socket.send(json);
 			}
 		,error:function(e){
 			alert("전송실패");
@@ -373,7 +388,7 @@ $(document).ready(function () {
 	    note_id = $(this).attr("id");
 	    var node =$(this).children('.check');
 	    var check= "<span class='glyphicon glyphicon-ok'></span>";
-	    $('#'+note_id).innerHTML=check;
+	    $('#'+note_id).append(check);
 	    
 	});
 	//우편함 등록버튼눌럿을시
@@ -394,9 +409,7 @@ $(document).ready(function () {
 });
 	
 	//색 저장
-	function defaultt(){
-		color ="btn-default";
-	}	 
+		 
 	function yellow(){
 		color ="#FAED7D";
 	}	 
@@ -440,7 +453,7 @@ $(document).ready(function () {
 										+"<input type='checkbox' class='min' id='check"+mb_code+"'/><div class='state p-success'><svg class='svg svg-icon' viewBox='0 0 20 20'>"
 										+"<path d='M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z' style='stroke: white;fill:white;'></path>"
 						    			+"</svg><label></label></div></div> </div> </div></div>"
-						    $('#messageModalBody').append(tag);			
+						    $('#messageModalBody').append(tag);	
 						 });
 					 //우편함 메모를 클릭햇을때
 						$('.min').click(function() {
@@ -532,37 +545,9 @@ $(document).ready(function () {
 
 <!-- 상단 -->
 
-<nav class="navbar navbar-default es_info-color" style='border:0;'>
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-     
-
-        <li><a href="javascript:newNoteModal()"><i class="fas fa-plus-circle fa-2x"></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;새 메모</span></a></li>
-        <li><a href="javascript:messageModal()"><i class="fas fa-envelope-open fa-2x"></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;내 우편함</span></a></li>
-        <li><a href="javascript:sendModal()"><i class="fas fa-paper-plane fa-2x"></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;메모 보내기</span></a></li>
-        <li><a href="javascript:deleteModal()"><i class="fa fa-trash fa-2x" aria-hidden="true"></i><span style='font-size:20px; magin-bottom:10px;'>&nbsp;삭제</span></a></li>
-      </ul>
-      
-      
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-<!-- /상단 -->
 <!-- body -->
-<div class="container-fluid" style="height: 95vh">
+<div class="container-fluid" style="height: 95vh; margin-top:150px; ">
     <div class="row content" style="height: 100%">
       <div class="col-sm-12"  style="height: 100%">
         <h1>메모</h1>

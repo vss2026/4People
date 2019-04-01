@@ -41,8 +41,15 @@ public class IncludeController implements Controller {
 						logger.info(key);
 					}
 				}
-				path = "forward:/include/sideResult.jsp";
+				path = "forward:/include/Result.jsp";
 				
+			}
+			else if("messageCount".equals(command)) {
+				String mem_id = String.valueOf(session.getAttribute("MEM_ID"));
+				int count =i_logic.messageCount(mem_id);
+				String messageCount = String.valueOf(count);
+				req.setAttribute("messageCount", messageCount);
+				path = "forward:/include/Result.jsp";
 			}
 		}
 		

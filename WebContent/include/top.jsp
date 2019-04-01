@@ -4,6 +4,8 @@
  String name = (String)session.getAttribute("MEM_NAME"); 
  String dept = (String)session.getAttribute("MEM_COMPANYNAME");
  String position = (String)session.getAttribute("MEM_POSITION");
+ String id = (String)session.getAttribute("MEM_ID");
+ 
 %>   
 <!DOCTYPE html>
 <html>
@@ -12,7 +14,22 @@
  <%@ include file="../common/common.jsp" %>
 <title>Insert title here</title>
 <script type="text/javascript">
+	var noteCount;
 $(document).ready(function () {
+	count();
+	function count(){
+		$.ajax({
+			type:"POST"
+			,url:"include/include.for?command=messageCount"
+			,dataType:"json"
+			,success:function(data){
+// 				alert(data);
+				noteCount=data;
+				noteCount *= 1;
+				$('#messageCount').append(data);
+			}
+		});
+	}
 	$('#sidebarToggle').click(function(){
 		$.ajax({
 			type:"POST"
@@ -308,7 +325,7 @@ a.article, a.article:hover {
                 <a href="#">회의실</a>
             </li>
             <li>
-                <a href="#">채팅</a>
+                <a href="../chatting/chatMain.jsp">채팅</a>
             </li>
             <li>
                 <a href="#">내 보드</a>
@@ -318,7 +335,7 @@ a.article, a.article:hover {
     <!-- /Sidebar -->
     
     <!-- 상단 -->
-<nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(51, 181, 229);" >
+<nav class="navbar navbar-default navbar-fixed-top es_info-color" style="border-color:rgb(51, 181, 229);" id='nav_top'>
   <div class="container-fluid">
    <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topNav">
@@ -336,7 +353,9 @@ a.article, a.article:hover {
         <button type="button" id="sidebarToggle" class="btn btn-navbar" style="outline: none; margin-left:0px; margin-top:7px; margin-bottom:0px; background:rgb(51, 181, 229);">
         	<i class="fas fa-bars"></i>
         </button>
-      
+        <span style='margin-left:20px;' id='navChat'>
+        
+		</span>
       </ul>
       
       <!-- 가운데 -->
@@ -368,7 +387,7 @@ a.article, a.article:hover {
         </ul>
       <form class="navbar-form navbar-right" role="search">
       
-         <a href="#" style="font-size:1.5em; margin-right:350px;  color: white; ">4People</a>
+         <a href="#" style="font-size:2.0em; margin-right:350px;  color: white; ">4People</a>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search" style="margin-top:5px;" >
         </div>
@@ -380,14 +399,16 @@ a.article, a.article:hover {
         </a>
         <a class="btn btn-default" href="../note/note.for?command=myBoard" id="messagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-envelope fa-fw"></i>
-          <span class="badge badge-danger">7</span>
+          <span class="badge badge-danger" id='messageCount'></span>
         </a>
       </form>
       
       
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
+  
 </nav>
+
 <!-- /상단 -->
 <div class="es_overlay"></div>
 <script type="text/javascript">
@@ -433,7 +454,39 @@ function dismiss(){
     	}, function() {
     	  $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
     	});
+    /* 웹소켓 카운트 */
+   		 var socket = new WebSocket('ws://192.168.0.6:9001/4people/WebSocketServer')
+		 var data = []
+    	 var mem_id = "<%= id %>";
+		socket.onopen = function() {
+    		var obj ={
+    			 id : mem_id,
+    			 gubun : 'open'
+    		}
+    		var json = JSON.stringify(obj);
+   			socket.send(json);
+		}
+		socket.onmessage = function(message) {
+			var info = JSON.parse(message.data);
+			var gubun = info.gubun;
+			if(gubun=='sendNote'){
+				noteCount +=1;
+				$('#messageCount').empty();
+				$('#messageCount').append(noteCount);
+			}
+			
+		}
+		socket.onerror = function() {
+			alert('에러가 발생 했습니다.')
+		}
+		socket.onclose = function() {
+			
+		}
+		
+		
+    /* 웹소켓 카운트 */
 </script>
+		
 </div>
 </body>
 </html>

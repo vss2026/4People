@@ -394,9 +394,7 @@ $(document).ready(function () {
 });
 	
 	//색 저장
-	function defaultt(){
-		color ="btn-default";
-	}	 
+		 
 	function yellow(){
 		color ="#FAED7D";
 	}	 

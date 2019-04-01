@@ -20,5 +20,6 @@
 		<mapper resource="com/mybatis/mapper/note.xml" />
 		<mapper resource="com/mybatis/mapper/meet.xml"/>
 		<mapper resource="com/mybatis/mapper/include.xml" />
+		<mapper resource="com/mybatis/mapper/card.xml" />
 	</mappers>
 </configuration> 

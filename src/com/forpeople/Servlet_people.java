@@ -49,6 +49,9 @@ public class Servlet_people extends HttpServlet {
 					RequestDispatcher view = req.getRequestDispatcher(path);
 					view.forward(req, res);
 				}
+				else if("hh".equals(pageMove[0])) {
+					
+				}
 				else {
 					res.sendRedirect("/error/pageMoveFail.jsp");
 				}

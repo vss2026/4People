@@ -1,9 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.util.Map, java.util.List, java.util.Iterator, java.util.ArrayList" %>
+    <%
+     List<Map<String,Object>> cardList = ( List<Map<String,Object>>)request.getAttribute("cardList");
+     List<String> labelList = ( List<String>)cardList.get(0).get("labelMap");
+     List<String> commentsList = ( List<String>)cardList.get(0).get("commentsMap");
+     List<String> desList = (List<String>)cardList.get(0).get("desMap");
+     List<String> label_color = new ArrayList<String>(); 
+     List<String> label_content = new ArrayList<String>(); 
+     List<String> label_code = new ArrayList<String>(); 
+     List<String> comm_no = new ArrayList<String>(); 
+     List<String> comm_time = new ArrayList<String>(); 
+     List<String> comm_content = new ArrayList<String>(); 
+     List<String> comm_maker = new ArrayList<String>(); 
+     String des_content = null; 
+     String des_no = null; 
+     if(labelList!=null){
+     Iterator ltr = labelList.iterator();
+		while(ltr.hasNext()){
+			Map<String,Object> pMap = (Map<String,Object>)ltr.next();
+			Object keys[] = pMap.keySet().toArray();
+			for(int j=0;j<keys.length;j++){
+				if(keys[j].equals("label_color")){
+					label_color.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("label_content")){
+					label_content.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("label_code")){
+					label_code.add(pMap.get(keys[j]).toString());
+				}
+				
+			}
+		}
+     }
+		if(commentsList!=null){
+     Iterator ctr = commentsList.iterator();
+		while(ctr.hasNext()){
+			Map<String,Object> pMap = (Map<String,Object>)ctr.next();
+			Object keys[] = pMap.keySet().toArray();
+			for(int j=0;j<keys.length;j++){
+				if(keys[j].equals("comm_no")){
+					comm_no.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("comm_time")){
+					comm_time.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("comm_content")){
+					comm_content.add(pMap.get(keys[j]).toString());
+				}
+				else if(keys[j].equals("comm_maker")){
+					comm_maker.add(pMap.get(keys[j]).toString());
+				}
+				
+			}
+		}
+    
+		}
+		if(desList!=null){
+			 Iterator dtr = desList.iterator();
+				while(dtr.hasNext()){
+					Map<String,Object> pMap = (Map<String,Object>)dtr.next();
+					Object keys[] = pMap.keySet().toArray();
+					for(int j=0;j<keys.length;j++){
+						if(keys[j].equals("des_no")){
+							des_no=(pMap.get(keys[j]).toString());
+						}
+						else if(keys[j].equals("des_content")){
+							des_content=(pMap.get(keys[j]).toString());
+						}
+						
+					}
+				}
+		}
+    %>
 <!DOCTYPE html>
 <style>
 .modal-body{
  overflow-y:auto;
+}
+
+<style>
+.modal-body{
+    overflow-y: auto;
 }
 </style>
  <div class="modal-dialog" style="ovewflow-y:auto">
@@ -17,6 +96,36 @@
         <!-- 라벨 div -->
          <div id="card_label" style="margin-left:20px; margin-bottom:50px;">
          <h3>라벨</h3>
+         <% if(labelList!=null){
+         for(int i=0;i<labelList.size();i++){ %>
+         <input id="<%=label_code.get(i) %>" type='button' class="btn <%=label_color.get(i) %>" value="<%= label_content.get(i)%>" data-toggle="modal" data-target="#label_modal2" onClick="label_codee(id)">
+         <%}} %>
+         <div id="label_modal2" class="modal modal-center fade" role="dialog" style="position:relative;width:250px">
+  		<div class="modal-dialogg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" onClick="mo_close()">&times;</button>
+        <h4 class="modal-title">수정 or 삭제</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="label_text2">
+        <Br>
+        <br>
+      <input type="button" class="btn btn-default btn-block" onClick="defaultt()">
+      <input type="button" class="btn btn-success btn-block" onClick="success()">
+      <input type="button" class="btn btn-info btn-block" onClick="info()">
+      <input type="button" class="btn btn-primary btn-block" onClick="primary()">
+      <input type="button" class="btn btn-warning btn-block" onClick="warning()">
+      <input type="button" class="btn btn-danger btn-block" onClick="danger()">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info"  onClick="label_Upd()">수정</button>
+        <button type="button" class="btn btn-danger" onClick="label_del()">삭제</button>
+      	</div>
+    	</div>
+  		</div>
+		</div>
          </div>
         <!-- 라벨 div -->
         
@@ -28,12 +137,21 @@
     
         <!-- 요약 div -->
          <div id="card_description" style=" margin-bottom:50px;">
-         <h3><img src="../images/description2.png">요약</h3>
-          <div>
-         <input type="text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0" >
+         <h3 id="hth"><img src="../images/description2.png">요약    <%if(des_content!=null){ %>
+           <a style="margin-left:20px">edit</a>
+		<%}%>     </h3>
+       
+          <div id="des_con">
+          <%if(des_content==null){ %>
+         <textarea  id="des_text" style="margin-left:50px; width:500px; height:150px; border-radius: 8px 8px 8px 10px; border:0; " />
+         <%}else{ %>
+         <span><h5 id="<%=des_no%>"><%=des_content %></h5></span>
+         <%} %>
          </div>
-         <div>
-         <input type="button" style="margin-left:50px; margin-top:10px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장">
+         <div id="des_bt">
+         <%if(des_content==null){ %>
+         <input type="button" style="margin-left:50px; margin-top:10px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장" onClick="descriptionIns()">
+         <%} %>
          </div>
          </div>
         <!-- 요약 div -->
@@ -48,11 +166,28 @@
          <div id="card_hanmadi" style=" margin-bottom:50px;">
          <h3><img src="../images/hanmadi.png">한마디</h3>
          <div>
-         <input type="text" style="margin-left:50px; width:500px; height:75px; border-radius: 8px 8px 8px 10px; border:0" >
+         <input type="text" id='input_comment' style="margin-left:50px; width:500px; height:75px;  border-radius: 8px 8px 8px 10px; border:0;">
          </div>
          <div>
-         <input type="button" style="margin-left:50px; margin-top:10px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장">
+         <input type="button"  style="margin-left:50px; margin-top:5px" class="btn btn-success col-sm-2 col-sm-offset-5" value="저장" onClick='comment()'>
          </div>
+         <!-- 은수 -->
+         <br><br><br>
+         <div id="comments" style='background-color: #D9D9D9;'>
+         <% if(commentsList!=null){
+        	 for(int i=0;i<commentsList.size();i++){
+           
+         %>
+         	<img  width="30px" height="30px"  src="../images/comment.png">
+         		<label><span style='font-size:20px; font_weight:bold; margin:5px;'><%=comm_maker.get(i) %></span><span style='font-size:8px;'><%=comm_time.get(i) %></span></label>
+         	<div>
+         	<span class="label label-default"><%=comm_content.get(i) %></span>
+         	</div>	
+         	<%
+        	 }}
+         	%>
+         </div>
+         <!-- 은수 -->
          </div>
         <!-- 한마디 div -->
          
@@ -65,7 +200,35 @@
         <div class="col-sm-2">
         <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px; margin-top:30px" ><img src="../images/description.png">요약</butuon>
         <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/member.png">참여자</butuon>
-        <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal" data-target="#label_modal"><img src="../images/label.png">라벨</butuon>
+        <div style="position:absolute;">
+        <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px" onClick="labelAdd()" data-toggle="modal"  data-backdrop="static" data-target="#label_modal"><img src="../images/label.png">라벨</butuon>
+        <div id="label_modal" class="modal modal-center fade" role="dialog" style="position:relative; left:-90px">
+  		<div class="modal-dialogg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" onClick="mo_close2()">&times;</button>
+        <h4 class="modal-title">라벨 내용</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="label_text">
+      </div>
+      <div class="modal-footer">
+      <input type="button" class="btn btn-default" onClick="defaultt()">
+      <input type="button" class="btn btn-success" onClick="success()">
+      <input type="button" class="btn btn-info" onClick="info()">
+      <br>
+      <input type="button" class="btn btn-primary" onClick="primary()">
+      <input type="button" class="btn btn-warning" onClick="warning()">
+      <input type="button" class="btn btn-danger" onClick="danger()">
+      <br>
+        <button type="button" class="btn btn-default"  onClick="addInput()">생성</button>
+      	</div>
+    	</div>
+  		</div>
+		</div>
+        </div>
+        
         <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/checklist.png">체크리스트</butuon>
         <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/gihan.png">기한설정</butuon>
         <butuon type="button" class="btn btn-default" style="text-align:left; width:120px; background-color:#CFCFCF; margin-bottom:8px"><img src="../images/c_file.png">첨부파일</butuon>

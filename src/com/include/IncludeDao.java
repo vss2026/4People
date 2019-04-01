@@ -17,7 +17,6 @@ public class IncludeDao {
 	public List<Map<String, Object>> sideTeamList(Map<String, Object> pMap) {
 		logger.info("IncludeDao호출");
 		SqlSessionFactory = MyBatisCommonFactory.getSqlSessionFactory();
-		logger.info(SqlSessionFactory);
 		List<Map<String,Object>> sideTeamList = new ArrayList<Map<String,Object>>();
 		session = SqlSessionFactory.openSession();
 		sideTeamList=session.selectList("sideTeamList",pMap);

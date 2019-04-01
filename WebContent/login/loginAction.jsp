@@ -22,7 +22,7 @@
 	
 	
 	<script>
-		location.href="../board/board.for?crud=sel&mem_id=<%=id %>";
+		location.href="../board/boardlist?mem_id=<%=id %>";
 // 		location.href="../board/board.jsp";
 	</script>
 	<%

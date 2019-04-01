@@ -10,58 +10,54 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 
-
+@Repository
 public class BoardDao {
-	SqlSessionFactory  sqlMap = null;
-	//
-	SqlSession session = null;
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate = null;
 	Logger logger = Logger.getLogger(BoardDao.class);
-	public void BoardIns(Map<String, Object> pMap) {
-		try {
-			String resource = "com/mybatis/Configuration.xml";
-			Reader reader =null;
-			reader = Resources.getResourceAsReader(resource);
-			sqlMap = new SqlSessionFactoryBuilder().build(reader);
-			session = sqlMap.openSession(); 
-			session.insert("BoardIns", pMap);
-			session.commit();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public void BoardIns(Map<String, Object> pMap) {
+//		try {
+//			String resource = "com/mybatis/Configuration.xml";
+//			Reader reader =null;
+//			reader = Resources.getResourceAsReader(resource);
+//			sqlMap = new SqlSessionFactoryBuilder().build(reader);
+//			session = sqlMap.openSession(); 
+//			session.insert("BoardIns", pMap);
+//			session.commit();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	public List<Map<String,Object>> BoardSel(Map<String, Object> pMap) {
 		
 		List<Map<String,Object>> BoardList = new ArrayList<Map<String,Object>>();
 		try {
-			String resource = "com/mybatis/Configuration.xml";
-			Reader reader =null;
-			reader = Resources.getResourceAsReader(resource);
-			sqlMap = new SqlSessionFactoryBuilder().build(reader);
-			session = sqlMap.openSession();
-			session.selectList("BoardSel", pMap);
+			sqlSessionTemplate.selectList("BoardSel", pMap);
 			 BoardList.add(pMap);
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
 		return BoardList;
 	}
-	public void BoardUpd(Map<String, Object> pMap) {
-		try {
-			String resource = "com/mybatis/Configuration.xml";
-			Reader reader =null;
-			reader = Resources.getResourceAsReader(resource);
-			sqlMap = new SqlSessionFactoryBuilder().build(reader);
-			session = sqlMap.openSession(); 
-			session.update("BoardUpd", pMap);
-			logger.info("성공?");
-			session.commit();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
+//	public void BoardUpd(Map<String, Object> pMap) {
+//		try {
+//			String resource = "com/mybatis/Configuration.xml";
+//			Reader reader =null;
+//			reader = Resources.getResourceAsReader(resource);
+//			sqlMap = new SqlSessionFactoryBuilder().build(reader);
+//			session = sqlMap.openSession(); 
+//			session.update("BoardUpd", pMap);
+//			logger.info("성공?");
+//			session.commit();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}		
 	}
 
-}

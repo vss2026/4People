@@ -45,7 +45,6 @@ public class ControllerMapper {
 				controller = new BoardListController();
 			}
 			
-			
 			else if("board".equals(category)) {
 				controller = new BoardController();
 			}

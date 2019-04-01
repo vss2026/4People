@@ -9,10 +9,8 @@
 </head>
 <body>
 <jsp:include page="../include/top.jsp"  flush="false">
-		<jsp:param value="" name="top" />
-	</jsp:include>
-<h1>
+<jsp:param value="" name="top" />
+</jsp:include>
 
-</h1>
 </body>
 </html>

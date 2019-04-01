@@ -3,21 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript">
-var mr_image;
-</script>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+ <%@ include file="../common/common.jsp" %>
 
-
-<!-- 부트스트랩 -->
+<!-- 부트스트랩css -->
  <link href="../csss/bootstrap.css" rel="stylesheet">
 <link href="../csss/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <!-- JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
  
  <!-- Custom styles for this template -->
  <link href="../csss/style.css" rel="stylesheet">
@@ -25,6 +23,7 @@ var mr_image;
  <link href="../csss/jiyun.css" rel="stylesheet">
 <script type="text/javascript">
 function roomIns_save(){
+	var mr_image;
     alert("저장-폼전송");
     //폼전송 처리함.
    mr_image=$('#mr_image').val();
@@ -32,7 +31,7 @@ function roomIns_save(){
     alert($('#input_file').val());
     
     $('#f_meetRoomIns').attr("method","GET");
-    $('#f_meetRoomIns').attr("action","./meetRoom.for");
+    $('#f_meetRoomIns').attr("action","./meetRoom.for?");
     $('#f_meetRoomIns').submit();
  }
 
@@ -99,7 +98,7 @@ $(document).ready(function(){
 
 			<!-- Modal -->
 		   <form id="f_meetRoomIns">
-		    <input type="hidden" id="crud" name="crud" value="ins"/>
+		  <input type="hidden" id="crud" name="crud" value="ins"/>
 			<div class="modal fade modal-dialog-lg" id="myModal" role="dialog">
 				<div class="modal-dialog modal-lg">
 
@@ -114,7 +113,7 @@ $(document).ready(function(){
 								<br>
 								<input  type ="text" id="mr_image" name="mr_image" class="upload-name" value="파일선택" disabled="disabled">
 								<label class="labeltext" for="input-file">업로드</label>
-								<input type="file"  name="input-file" id="input-file" class="upload-hidden"> 
+								<input type="file"  name="mr_image" id="input-file" class="upload-hidden"> 
 							</div>
 							<div class="inputbox form-group">
 							<label for="meetname" class="inputlabel">회의실 이름</label>

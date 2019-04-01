@@ -8,7 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
+
  <%@ include file="../common/common.jsp" %>
 <title>Insert title here</title>
 <style>
@@ -207,9 +209,26 @@ a.article, a.article:hover {
   background-color:#376092;
   color: white;
 }
+.meetplace{
+border:1px solid blue;
+margin-top:2%;
+width:95%;
+height:1000px;
+margin-left:2.5%;
+}
+
 </style>
 </head>
 <body>
+<script type="text/javascript">
+
+$(function() {
+	$("#meeting").click(function() {
+		$("#meetdiv").load("../meetRoom/meetRoomAdds.jsp");
+	});
+});
+</script>
+
 <div class="es_wrapper">
  <!-- Sidebar -->
     <nav id="sidebar">
@@ -245,7 +264,7 @@ a.article, a.article:hover {
             </li>
             
             <li>
-                <a href="#">회의실</a>
+                <a href="#" id="meeting">회의실</a>
             </li>
             <li>
                 <a href="#">채팅</a>
@@ -281,7 +300,7 @@ a.article, a.article:hover {
       
       <!-- 가운데 -->
 <!--       <ul class="nav navbar-nav navbar-center"> -->
-      
+   
 <!--       </ul> -->
       <!-- 오른쪽 -->
       <ul class="nav navbar-nav navbar-right">
@@ -375,5 +394,9 @@ function dismiss(){
     	});
 </script>
 </div>
+
+   <div class="meetplace" id="meetdiv" >
+
+			</div>
 </body>
 </html>

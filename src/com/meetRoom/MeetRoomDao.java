@@ -13,6 +13,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
 
 import com.board.BoardDao;
+
 import com.vo.MeetRoomVO;
 
 public class MeetRoomDao {
@@ -30,8 +31,7 @@ public class MeetRoomDao {
 			reader =Resources.getResourceAsReader(resource);
 			sqlSessionFactory  = new SqlSessionFactoryBuilder().build(reader);
 			 session = sqlSessionFactory.openSession();
-			 result=session.selectOne("meetRoomIns",pMap);
-			 
+			 result = session.insert("meetRoomIns",pMap);
 			 session.commit();
 			 logger.info(pMap.size());
 			 logger.info("result:"+result);
@@ -45,5 +45,23 @@ public class MeetRoomDao {
 		
 		return result;
 	}
-
+	public List<Map<String, Object>> roomList(MeetRoomVO mrVO) throws SQLException {
+		logger.info("roomList 호출 성공");
+		List<Map<String, Object>> roomList = 
+				new ArrayList<Map<String,Object>>();
+		try {
+			String resource ="com/mybatis/Configuration.xml";
+			Reader reader = null;
+			reader =Resources.getResourceAsReader(resource);
+			sqlSessionFactory  = new SqlSessionFactoryBuilder().build(reader);
+			 session = sqlSessionFactory.openSession();
+			 session.selectList("meetRoomList",mrVO); //boardList 
+			 logger.info(mrVO.getMr_no());
+			 logger.info(roomList.size());
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		return roomList;
+	}
 }

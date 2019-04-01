@@ -200,6 +200,7 @@ public class NoteDao {
 				Map<String,Object> hMap = new HashMap<String, Object>();
 				hMap.put("mb_code",key);
 				session.delete("deleteMessage",hMap);
+				session.commit();
 			}
 			
 		} catch (IOException e) {

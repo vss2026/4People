@@ -149,6 +149,9 @@ public class NoteController implements Controller {
 				Map<String,Object> pMap = new HashMap<String,Object>();
 				HashMapBinder binder = new HashMapBinder(req);
 				binder.bind(pMap);
+				for(Object key:pMap.keySet()) {
+					logger.info("key="+key+" value="+pMap.get(key));
+				}
 				n_logic.deleteMessage(pMap);
 				path="redirect:note.for?command=myBoard";
 			}

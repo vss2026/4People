@@ -4,17 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import com.forpeople.Controller;
 import com.util.HashMapBinder;
-
-public class LoginController implements Controller {
+@Controller
+public class LoginController  {
 	LoginLogic l_logic = new LoginLogic();
 	String command =null;
 	Logger logger =  Logger.getLogger(LoginController.class);

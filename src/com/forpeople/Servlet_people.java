@@ -21,6 +21,7 @@ public class Servlet_people extends HttpServlet {
 		String command = requestURI.substring(contextPath.length()+1);//category/xxxx.for
 		String crud = req.getParameter("crud");//최상위 컨트롤러에서 직접 curd값 받음->controllerMapper에 전달
 		logger.info("command : "+command);
+		logger.info("crud: "+crud);
 		Controller controller = null; //인터페이스 선언
 		try {
 			controller = ControllerMapper.getController(command, crud); //구현체클래스 정의  : return = 각 Controller 주소(category 분기)

@@ -26,6 +26,7 @@ public class CalendarLogic {
 		logger.info("캘린더 입력 호출 성공");
 		int result = 0;
 		result = calDao.calIns(pMap);
+		logger.info("result :"+result);
 		return result;
 	}
 
